@@ -1,0 +1,17 @@
+{
+  "slug": "multi-site-programs",
+  "kind": "solution",
+  "eyebrow": "Distributed operations",
+  "name": "Multi-site programs",
+  "icon": "map",
+  "description": "Standardize the essential visitor experience across locations, while keeping site-level operations clear and practical.",
+  "benefits": [
+    "Shared operating standards",
+    "Site-level visitor visibility",
+    "Consistent reporting and oversight"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "visual": "multiSite",
+  "sortOrder": 1
+}

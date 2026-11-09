@@ -1,0 +1,10 @@
+{
+  "slug": "multi-factor-authentication",
+  "name": "Multi-factor authentication",
+  "description": "Requires an additional identity check for user access.",
+  "icon": "lock",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 1
+}

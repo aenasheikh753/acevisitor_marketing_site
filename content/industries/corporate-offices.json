@@ -1,0 +1,14 @@
+{
+  "slug": "corporate-offices",
+  "name": "Corporate offices",
+  "icon": "building",
+  "scenario": "Keep everyday visits professional, predictable and easy to manage.",
+  "benefits": [
+    "Client and guest arrivals",
+    "Host notifications",
+    "Multi-office visibility"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 7
+}

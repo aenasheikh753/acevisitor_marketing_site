@@ -1,0 +1,10 @@
+{
+  "slug": "audit-logging",
+  "name": "Audit logging",
+  "description": "Keeps a history of important visitor and administrative activity.",
+  "icon": "clipboardList",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 4
+}

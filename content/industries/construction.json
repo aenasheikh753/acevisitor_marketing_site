@@ -1,0 +1,14 @@
+{
+  "slug": "construction",
+  "name": "Construction & industrial",
+  "icon": "hardHat",
+  "scenario": "Coordinate contractors and guests across active, changing sites.",
+  "benefits": [
+    "Contractor visit details",
+    "Site-specific check-in",
+    "Consistent visitor identification"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 6
+}

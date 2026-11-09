@@ -1,0 +1,14 @@
+{
+  "slug": "education",
+  "name": "Education",
+  "icon": "education",
+  "scenario": "Help campus teams coordinate guests, vendors and scheduled visits.",
+  "benefits": [
+    "Campus visitor registration",
+    "Host and staff coordination",
+    "Entrance-level visibility"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 5
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "government",
+  "name": "Government",
+  "icon": "government",
+  "scenario": "Bring structure and accountability to public-sector visitor operations.",
+  "benefits": [
+    "Defined arrival workflows",
+    "Clear responsibilities",
+    "Reviewable site activity"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 2
+}

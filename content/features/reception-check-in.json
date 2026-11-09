@@ -1,0 +1,14 @@
+{
+  "slug": "reception-check-in",
+  "kind": "feature",
+  "name": "Reception check-in",
+  "icon": "monitor",
+  "description": "Keep a live guest list and make assisted check-in simple.",
+  "benefits": [
+    "Today’s expected guests",
+    "Quick assisted arrival"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 2
+}

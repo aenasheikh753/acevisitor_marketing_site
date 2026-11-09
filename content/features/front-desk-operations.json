@@ -1,0 +1,17 @@
+{
+  "slug": "front-desk-operations",
+  "kind": "solution",
+  "eyebrow": "Daily welcome",
+  "name": "Front desk operations",
+  "icon": "monitor",
+  "description": "Reduce repetitive tasks and help reception teams deliver a thoughtful, professional welcome throughout the day.",
+  "benefits": [
+    "Assisted check-in",
+    "Live arrivals and notifications",
+    "Clear visitor badges and records"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "visual": "frontDesk",
+  "sortOrder": 3
+}

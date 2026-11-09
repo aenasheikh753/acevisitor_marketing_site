@@ -1,0 +1,10 @@
+{
+  "slug": "data-retention",
+  "name": "Data retention controls",
+  "description": "Lets organizations apply retention periods to visitor records.",
+  "icon": "clock",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 7
+}

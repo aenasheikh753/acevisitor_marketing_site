@@ -1,0 +1,10 @@
+{
+  "slug": "encryption-in-transit",
+  "name": "Encryption in transit",
+  "description": "Protects data as it moves between users and the platform.",
+  "icon": "lock",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 5
+}

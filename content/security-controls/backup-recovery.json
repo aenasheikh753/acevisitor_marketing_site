@@ -1,0 +1,10 @@
+{
+  "slug": "backup-recovery",
+  "name": "Backup and recovery",
+  "description": "Maintains backups and a tested recovery process.",
+  "icon": "shield",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 8
+}

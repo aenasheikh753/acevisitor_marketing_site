@@ -1,0 +1,71 @@
+{
+  "slug": "solutions",
+  "eyebrow": "Solutions",
+  "title": "Visitor operations that fit the way your sites work.",
+  "subtitle": "Create a consistent welcome while giving each team the workflows and visibility their environment needs.",
+  "heroVisual": "multiSite",
+  "primaryAction": {
+    "label": "Request a demo",
+    "href": "/contact#request-demo"
+  },
+  "secondaryAction": {
+    "label": "View the platform",
+    "href": "/platform"
+  },
+  "sections": [
+    {
+      "type": "solutions",
+      "eyebrow": "Use cases",
+      "title": "A practical fit for the way visitors arrive.",
+      "description": "Support distributed programs, third-party access and the daily work of a busy front desk."
+    },
+    {
+      "type": "features",
+      "eyebrow": "Modules",
+      "title": "Choose the building blocks your program needs.",
+      "description": "Each module connects to the same visitor record and arrival workflow."
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Better outcomes",
+      "title": "More confidence at the door. More clarity everywhere else.",
+      "columns": 3,
+      "items": [
+        {
+          "icon": "sparkles",
+          "title": "A consistent welcome",
+          "description": "Visitors know what to expect at every location and entrance."
+        },
+        {
+          "icon": "clock",
+          "title": "Less front desk friction",
+          "description": "Teams spend less time chasing details and more time helping people."
+        },
+        {
+          "icon": "map",
+          "title": "A clearer operating picture",
+          "description": "Leaders and local teams can work from better visitor context."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "title": "Build a visitor program that works across your sites.",
+      "description": "Talk with our team about the workflows your locations need.",
+      "primary": {
+        "label": "Request a demo",
+        "href": "/contact#request-demo"
+      },
+      "secondary": {
+        "label": "View the platform",
+        "href": "/platform"
+      }
+    }
+  ],
+  "seo": {
+    "title": "Solutions | AceVisitor",
+    "description": "Visitor-management solutions for multi-site programs, contractor and vendor visits, and busy front desk teams.",
+    "image": "/images/og-default.jpg",
+    "canonical": "/solutions/"
+  }
+}

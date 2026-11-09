@@ -1,0 +1,14 @@
+{
+  "slug": "healthcare",
+  "name": "Healthcare",
+  "icon": "health",
+  "scenario": "Support a considerate welcome in environments with sensitive operations.",
+  "benefits": [
+    "Clear visitor records",
+    "Consistent check-in steps",
+    "Considered staff workflows"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 1
+}

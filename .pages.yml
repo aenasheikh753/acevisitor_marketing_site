@@ -1,0 +1,511 @@
+# Pages CMS configuration. Editor guide: docs/CMS-EDITOR-GUIDE.md
+media:
+  input: public/images
+  output: /images
+  rename: safe
+  categories: [image]
+
+components:
+  seo:
+    label: SEO
+    type: object
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: description, type: text, required: true }
+      - { name: image, label: Social preview image, type: image }
+      - { name: canonical, label: Canonical URL, type: string, required: true }
+  link:
+    type: object
+    fields:
+      - { name: label, type: string, required: true }
+      - { name: href, label: Link, type: string, required: true }
+  icon:
+    type: select
+    options:
+      values: [arrowRight, badge, building, calendar, check, clipboard, clipboardList, clock, contractor, door, education, eye, file, finance, globe, government, hardHat, health, id, key, layers, lock, logout, mail, map, message, monitor, network, phone, search, server, shield, sparkles, userCheck, users]
+  visual:
+    type: select
+    options:
+      values: [none, dashboard, frontDesk, kiosk, approvals, multiSite]
+  card:
+    type: object
+    fields:
+      - { name: icon, component: icon }
+      - { name: title, type: string, required: true }
+      - { name: description, type: text, required: true }
+
+content:
+  - name: site
+    label: Site settings
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - { name: brandName, label: Brand name, type: string, required: true }
+      - { name: tagline, type: string }
+      - { name: description, type: text }
+      - { name: siteUrl, label: Production site URL, type: string, required: true }
+      - { name: legalEntity, label: Company name, type: string }
+      - name: logo
+        type: object
+        fields:
+          - { name: src, label: Logo image, type: image }
+          - { name: alt, label: Alt text, type: string }
+      - { name: defaultSocialImage, label: Default social preview image, type: image }
+      - { name: menu, component: link, list: true }
+      - { name: loginLabel, label: Login button text, type: string }
+      - { name: cta, label: Header call to action, component: link }
+      - name: footer
+        type: object
+        fields:
+          - { name: summary, type: text }
+          - { name: companyLine, label: Company line, type: string }
+          - name: groups
+            label: Link groups
+            type: object
+            list: true
+            fields:
+              - { name: title, type: string }
+              - { name: links, component: link, list: true }
+          - { name: legalLinks, label: Legal links, component: link, list: true }
+          - { name: copyright, type: string }
+      - name: contact
+        label: Contact info
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: email, type: string }
+          - { name: phone, type: string }
+          - { name: address, type: text }
+      - { name: social, label: Social links, component: link, list: true }
+      - name: ui
+        label: Interface wording (advanced)
+        description: Edit values only. Removing a field will break the build.
+        type: object
+        fields:
+          - { name: skipLink, type: string }
+          - { name: homeLabel, type: string }
+          - { name: navLabel, type: string }
+          - { name: menuOpen, type: string }
+          - { name: menuClose, type: string }
+          - { name: loginUnavailable, type: string }
+          - { name: footerNavLabel, type: string }
+          - { name: mockupNote, type: text }
+          - name: blog
+            type: object
+            fields:
+              - { name: categoriesLabel, type: string }
+              - { name: allCategories, type: string }
+              - { name: readMore, type: string }
+              - { name: backToAll, type: string }
+              - { name: writtenBy, type: string }
+              - { name: categoryEyebrow, type: string }
+              - { name: authorEyebrow, type: string }
+              - { name: empty, type: string }
+              - { name: rssLabel, type: string }
+          - name: gallery
+            type: object
+            fields:
+              - { name: allCategories, type: string }
+              - { name: filterLabel, type: string }
+              - { name: open, type: string }
+              - { name: close, type: string }
+              - { name: previous, type: string }
+              - { name: next, type: string }
+              - { name: note, type: text }
+              - { name: empty, type: string }
+          - name: legal
+            type: object
+            fields:
+              - { name: revisedLabel, type: string }
+          - name: notFound
+            label: 404 page
+            type: object
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string }
+              - { name: description, type: text }
+              - { name: primary, component: link }
+              - { name: secondary, component: link }
+
+  - name: pages
+    label: Pages
+    type: collection
+    path: content/pages
+    format: json
+    filename: "{fields.slug}.json"
+    view:
+      fields: [title, slug]
+      primary: title
+    fields:
+      - { name: slug, type: string, required: true }
+      - { name: eyebrow, type: string }
+      - { name: title, type: string, required: true }
+      - { name: subtitle, type: text }
+      - { name: heroVisual, label: Hero visual, component: visual }
+      - { name: primaryAction, label: Primary button, component: link }
+      - { name: secondaryAction, label: Secondary button, component: link }
+      - { name: proofLine, label: Proof line, type: string }
+      - name: sections
+        label: Sections
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: proofPoints
+            label: Proof points
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - name: items
+                type: object
+                list: true
+                fields:
+                  - { name: value, type: string }
+                  - { name: label, type: string }
+          - name: cards
+            label: Cards
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: columns, type: number }
+              - { name: items, component: card, list: true }
+          - name: features
+            label: Features list (from Features collection)
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: showBenefits, label: Show benefits, type: boolean }
+          - name: solutions
+            label: Solutions list (from Features collection)
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+          - name: industries
+            label: Industries list
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: limit, label: Maximum shown, type: number }
+              - { name: action, label: Link, component: link }
+          - name: split
+            label: Text and visual
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: body, label: Paragraphs, type: text, list: true }
+              - { name: checklist, type: string, list: true }
+              - { name: visual, label: Code visual, component: visual }
+              - { name: image, label: Image (replaces code visual), type: image }
+              - { name: imageAlt, label: Image alt text, type: string }
+              - { name: reverse, label: Visual on the left, type: boolean }
+              - { name: action, label: Button, component: link }
+          - name: workflow
+            label: Workflow steps
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: steps, component: card, list: true }
+          - name: gallery
+            label: Full gallery
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+          - name: galleryPreview
+            label: Gallery preview
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: limit, label: Images shown, type: number }
+              - { name: action, label: Link, component: link }
+          - name: latestPosts
+            label: Latest blog posts
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: limit, label: Posts shown, type: number }
+              - { name: action, label: Link, component: link }
+          - name: security
+            label: Verified security controls
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: emptyTitle, label: Title when nothing is verified, type: string }
+              - { name: emptyDescription, label: Text when nothing is verified, type: text }
+              - { name: emptyItems, label: Cards when nothing is verified, component: card, list: true }
+              - { name: emptyAction, label: Link when nothing is verified, component: link }
+          - name: faqs
+            label: FAQs
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - name: items
+                type: object
+                list: true
+                fields:
+                  - { name: question, type: string }
+                  - { name: answer, type: text }
+          - name: siteIndex
+            label: Site index
+            fields:
+              - { name: title, type: string, required: true }
+              - { name: postsTitle, label: Posts heading, type: string }
+              - { name: legalTitle, label: Legal heading, type: string }
+          - name: form
+            label: Contact form
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: asideTitle, label: Side column title, type: string }
+              - { name: asideItems, label: Side column items, component: card, list: true }
+              - name: form
+                label: Form wording
+                type: object
+                fields:
+                  - { name: requiredHint, type: string }
+                  - name: fields
+                    type: object
+                    fields:
+                      - name: name
+                        type: object
+                        fields:
+                          - { name: label, type: string }
+                          - { name: placeholder, type: string }
+                          - { name: error, type: string }
+                      - name: email
+                        type: object
+                        fields:
+                          - { name: label, type: string }
+                          - { name: placeholder, type: string }
+                          - { name: error, type: string }
+                          - { name: invalid, type: string }
+                      - name: company
+                        type: object
+                        fields:
+                          - { name: label, type: string }
+                          - { name: placeholder, type: string }
+                          - { name: error, type: string }
+                      - name: interest
+                        type: object
+                        fields:
+                          - { name: label, type: string }
+                          - { name: options, type: string, list: true }
+                      - name: message
+                        type: object
+                        fields:
+                          - { name: label, type: string }
+                          - { name: placeholder, type: string }
+                          - { name: error, type: string }
+                      - name: honeypot
+                        type: object
+                        fields:
+                          - { name: label, type: string }
+                  - { name: submit, type: string }
+                  - { name: submitting, type: string }
+                  - { name: privacyNote, type: string }
+                  - { name: errorSummary, type: string }
+                  - name: success
+                    type: object
+                    fields:
+                      - { name: title, type: string }
+                      - { name: description, type: text }
+                  - name: failure
+                    type: object
+                    fields:
+                      - { name: title, type: string }
+                      - { name: description, type: text }
+          - name: cta
+            label: Call to action band
+            fields:
+              - { name: eyebrow, type: string }
+              - { name: title, type: string, required: true }
+              - { name: description, type: text }
+              - { name: primary, component: link }
+              - { name: secondary, component: link }
+      - { name: seo, component: seo }
+
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: content/blog
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, date, status]
+      primary: title
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: slug, type: string, required: true }
+      - name: date
+        type: date
+        required: true
+        options: { format: yyyy-MM-dd }
+      - name: status
+        type: select
+        required: true
+        default: draft
+        options: { values: [draft, published] }
+      - { name: summary, type: text, required: true }
+      - { name: coverImage, label: Cover image, type: image, required: true }
+      - { name: coverAlt, label: Cover alt text, type: string, required: true }
+      - name: category
+        type: reference
+        required: true
+        options: { collection: categories, search: name, value: "{fields.slug}", label: "{fields.name}" }
+      - name: author
+        type: reference
+        required: true
+        options: { collection: authors, search: name, value: "{fields.slug}", label: "{fields.name}" }
+      - { name: seo, component: seo }
+      - name: body
+        type: rich-text
+        options: { format: markdown }
+
+  - name: categories
+    label: Blog categories
+    type: collection
+    path: content/categories
+    format: json
+    filename: "{fields.slug}.json"
+    view: { fields: [name, slug], primary: name }
+    fields:
+      - { name: slug, type: string, required: true }
+      - { name: name, type: string, required: true }
+      - { name: description, type: text, required: true }
+
+  - name: authors
+    label: Blog authors
+    type: collection
+    path: content/authors
+    format: json
+    filename: "{fields.slug}.json"
+    view: { fields: [name, role], primary: name }
+    fields:
+      - { name: slug, type: string, required: true }
+      - { name: name, type: string, required: true }
+      - { name: role, type: string }
+      - { name: bio, type: text, required: true }
+
+  - name: legal
+    label: Legal pages
+    type: collection
+    path: content/legal
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    operations: { create: false, delete: false, rename: false }
+    view: { fields: [title, revised], primary: title }
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: subtitle, type: string }
+      - name: revised
+        label: Revision date
+        type: date
+        required: true
+        options: { format: yyyy-MM-dd }
+      - { name: notice, label: Draft notice (clear when approved), type: text }
+      - { name: seo, component: seo }
+      - name: body
+        type: rich-text
+        options: { format: markdown }
+
+  - name: features
+    label: Features and solutions
+    type: collection
+    path: content/features
+    format: json
+    filename: "{fields.slug}.json"
+    view: { fields: [name, kind, sortOrder], primary: name, default: { sort: sortOrder, order: asc } }
+    fields:
+      - { name: slug, type: string, required: true }
+      - name: kind
+        type: select
+        required: true
+        options: { values: [feature, solution] }
+      - { name: name, type: string, required: true }
+      - { name: eyebrow, type: string }
+      - { name: icon, component: icon }
+      - { name: description, type: text, required: true }
+      - { name: benefits, type: string, list: true }
+      - { name: image, type: image }
+      - { name: imageAlt, label: Image alt text, type: string }
+      - { name: visual, label: Code visual, component: visual }
+      - { name: sortOrder, label: Sort order, type: number, required: true }
+
+  - name: industries
+    label: Industries
+    type: collection
+    path: content/industries
+    format: json
+    filename: "{fields.slug}.json"
+    view: { fields: [name, sortOrder], primary: name, default: { sort: sortOrder, order: asc } }
+    fields:
+      - { name: slug, type: string, required: true }
+      - { name: name, type: string, required: true }
+      - { name: icon, component: icon }
+      - { name: scenario, type: text, required: true }
+      - { name: benefits, type: string, list: true }
+      - { name: image, type: image }
+      - { name: imageAlt, label: Image alt text, type: string }
+      - { name: sortOrder, label: Sort order, type: number, required: true }
+
+  - name: gallery
+    label: Gallery
+    type: collection
+    path: content/gallery
+    format: json
+    filename: "{fields.slug}.json"
+    view: { fields: [caption, category, sortOrder], primary: caption, default: { sort: sortOrder, order: asc } }
+    fields:
+      - { name: slug, type: string, required: true }
+      - { name: image, type: image, required: true }
+      - { name: alt, label: Alt text, type: string, required: true }
+      - { name: caption, type: string, required: true }
+      - { name: category, type: string, required: true }
+      - { name: sortOrder, label: Sort order, type: number, required: true }
+
+  - name: securityControls
+    label: Security controls
+    type: collection
+    path: content/security-controls
+    format: json
+    filename: "{fields.slug}.json"
+    view: { fields: [name, verificationStatus, owner, reviewDate], primary: name, default: { sort: sortOrder, order: asc } }
+    fields:
+      - { name: slug, type: string, required: true }
+      - { name: name, type: string, required: true }
+      - { name: description, label: Public description, type: text, required: true }
+      - { name: icon, component: icon }
+      - name: verificationStatus
+        label: Verification status
+        description: Only "verified" controls appear on the website. Set this only with evidence recorded in docs/SECURITY-CLAIMS-CHECKLIST.md.
+        type: select
+        required: true
+        default: unverified
+        options: { values: [internal, unverified, verified] }
+      - { name: owner, label: Owner (never shown publicly), type: string }
+      - name: reviewDate
+        label: Review date (never shown publicly)
+        type: date
+        default: ""
+        options: { format: yyyy-MM-dd }
+      - { name: sortOrder, label: Sort order, type: number, required: true }
+
+  - name: mockups
+    label: Product mockup text
+    type: file
+    path: content/mockups.json
+    format: code

@@ -1,0 +1,10 @@
+{
+  "slug": "encryption-at-rest",
+  "name": "Encryption at rest",
+  "description": "Protects stored visitor and account data.",
+  "icon": "server",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 6
+}

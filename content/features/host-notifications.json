@@ -1,0 +1,14 @@
+{
+  "slug": "host-notifications",
+  "kind": "feature",
+  "name": "Host notifications",
+  "icon": "userCheck",
+  "description": "Notify hosts and route the decisions that keep visits moving.",
+  "benefits": [
+    "Arrival alerts",
+    "Straightforward responses"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 4
+}

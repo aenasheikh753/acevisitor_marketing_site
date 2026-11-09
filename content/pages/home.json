@@ -1,0 +1,187 @@
+{
+  "slug": "home",
+  "eyebrow": "Visitor management for modern enterprise",
+  "title": "Control every entrance, across every site.",
+  "subtitle": "Give every guest a confident welcome. Give every team a clearer view of who is on site, why they are here, and what happens next.",
+  "heroVisual": "dashboard",
+  "primaryAction": {
+    "label": "Request a demo",
+    "href": "/contact#request-demo"
+  },
+  "secondaryAction": {
+    "label": "Explore the platform",
+    "href": "/platform"
+  },
+  "proofLine": "One platform, every entrance.",
+  "sections": [
+    {
+      "type": "proofPoints",
+      "eyebrow": "Why teams choose AceVisitor",
+      "title": "Built around the people at the door.",
+      "items": [
+        {
+          "value": "One",
+          "label": "consistent guest experience"
+        },
+        {
+          "value": "Every",
+          "label": "entrance in view"
+        },
+        {
+          "value": "Clear",
+          "label": "local accountability"
+        }
+      ]
+    },
+    {
+      "type": "cards",
+      "eyebrow": "A connected visitor experience",
+      "title": "Everything your front door needs. Nothing it doesn’t.",
+      "description": "Replace scattered sign-in processes with one consistent system built for people, policies and places.",
+      "columns": 3,
+      "items": [
+        {
+          "icon": "sparkles",
+          "title": "A confident welcome",
+          "description": "Give guests a clear, professional check-in experience at every entrance."
+        },
+        {
+          "icon": "users",
+          "title": "More connected teams",
+          "description": "Bring reception, hosts and administrators into the same visitor workflow."
+        },
+        {
+          "icon": "map",
+          "title": "Clarity across sites",
+          "description": "Keep local operations moving while giving teams a broader view of arrivals."
+        }
+      ]
+    },
+    {
+      "type": "workflow",
+      "eyebrow": "One connected experience",
+      "title": "A better visit, from first invite to final sign-out.",
+      "description": "Every step is clear for guests and useful for your team. AceVisitor connects the details without adding friction.",
+      "steps": [
+        {
+          "icon": "message",
+          "title": "Invite",
+          "description": "Send a polished invitation with the details guests need."
+        },
+        {
+          "icon": "calendar",
+          "title": "Pre-register",
+          "description": "Collect visit details and agreements before arrival."
+        },
+        {
+          "icon": "door",
+          "title": "Arrive",
+          "description": "Offer a welcoming, guided check-in at any entrance."
+        },
+        {
+          "icon": "badge",
+          "title": "Badge",
+          "description": "Issue a clear, professional visitor badge."
+        },
+        {
+          "icon": "userCheck",
+          "title": "Notify the host",
+          "description": "Keep hosts informed and route approvals promptly."
+        },
+        {
+          "icon": "logout",
+          "title": "Check out",
+          "description": "Close each visit and keep occupancy current."
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "eyebrow": "One platform, every touchpoint",
+      "title": "A polished arrival, backed by an operations console.",
+      "description": "Welcome guests at reception or self-service. Give teams a live view that keeps arrivals, approvals, badges and site activity together.",
+      "checklist": [
+        "A live view for the people who keep every arrival moving",
+        "An intuitive self-service flow for guests at the door",
+        "Clear visitor identification with the details your team needs"
+      ],
+      "visual": "frontDesk",
+      "action": {
+        "label": "Explore the platform",
+        "href": "/platform"
+      }
+    },
+    {
+      "type": "split",
+      "eyebrow": "Ready to scale with you",
+      "title": "Local control. Organization-wide clarity.",
+      "description": "Bring sites into one operating model while giving local teams the context and autonomy to run their entrances well.",
+      "visual": "multiSite",
+      "reverse": true,
+      "action": {
+        "label": "See multi-site solutions",
+        "href": "/solutions"
+      }
+    },
+    {
+      "type": "industries",
+      "eyebrow": "Designed for real-world environments",
+      "title": "One thoughtful experience, adapted to your sites.",
+      "limit": 6,
+      "action": {
+        "label": "See all industries",
+        "href": "/industries"
+      }
+    },
+    {
+      "type": "galleryPreview",
+      "eyebrow": "See it in action",
+      "title": "Designed for the moments that matter.",
+      "description": "Explore the touchpoints that make visitor operations feel effortless.",
+      "limit": 3,
+      "action": {
+        "label": "Explore the gallery",
+        "href": "/gallery"
+      }
+    },
+    {
+      "type": "split",
+      "eyebrow": "Security and governance",
+      "title": "Bring your governance questions to the table.",
+      "description": "Every organization has its own review criteria. Talk with our team about the controls and operating practices your program needs.",
+      "action": {
+        "label": "Security & governance",
+        "href": "/security"
+      }
+    },
+    {
+      "type": "latestPosts",
+      "eyebrow": "Insights",
+      "title": "Ideas for a better visitor experience.",
+      "limit": 3,
+      "action": {
+        "label": "Read all insights",
+        "href": "/blog"
+      }
+    },
+    {
+      "type": "cta",
+      "title": "Make every arrival a better experience.",
+      "description": "See how AceVisitor can bring a more confident welcome and a clearer operating picture to your organization.",
+      "primary": {
+        "label": "Request a demo",
+        "href": "/contact#request-demo"
+      },
+      "secondary": {
+        "label": "Explore the platform",
+        "href": "/platform"
+      }
+    }
+  ],
+  "seo": {
+    "title": "AceVisitor | Visitor management for modern enterprise",
+    "description": "Give every guest a confident welcome and every team a clearer view of who is on site, across every entrance and every location.",
+    "image": "/images/og-default.jpg",
+    "canonical": "/"
+  }
+}

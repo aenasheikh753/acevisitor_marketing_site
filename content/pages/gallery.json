@@ -1,0 +1,29 @@
+{
+  "slug": "gallery",
+  "eyebrow": "Inside AceVisitor",
+  "title": "AceVisitor in focus.",
+  "subtitle": "Explore the experiences that help visitors feel expected and help teams stay on top of the day.",
+  "heroVisual": "none",
+  "sections": [
+    {
+      "type": "gallery",
+      "eyebrow": "Gallery",
+      "title": "Browse product views by category."
+    },
+    {
+      "type": "cta",
+      "title": "See it with your own workflows.",
+      "description": "Walk through AceVisitor with our team and talk about your sites.",
+      "primary": {
+        "label": "Request a demo",
+        "href": "/contact#request-demo"
+      }
+    }
+  ],
+  "seo": {
+    "title": "Gallery | AceVisitor",
+    "description": "Illustrative views of AceVisitor front desk, visitor badge, host approval and multi-site experiences.",
+    "image": "/images/og-default.jpg",
+    "canonical": "/gallery/"
+  }
+}

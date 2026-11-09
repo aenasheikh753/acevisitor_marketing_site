@@ -1,0 +1,150 @@
+{
+  "slug": "platform",
+  "eyebrow": "The AceVisitor platform",
+  "title": "A connected system for every visitor touchpoint.",
+  "subtitle": "Bring invitations, arrivals, approvals, badges and reporting into one calm, consistent operating experience.",
+  "heroVisual": "frontDesk",
+  "primaryAction": {
+    "label": "Request a demo",
+    "href": "/contact#request-demo"
+  },
+  "secondaryAction": {
+    "label": "Explore solutions",
+    "href": "/solutions"
+  },
+  "sections": [
+    {
+      "type": "features",
+      "eyebrow": "A connected toolkit",
+      "title": "The essentials, thoughtfully connected.",
+      "description": "Give every team the tools to welcome and understand visitors without adding complexity at the front door.",
+      "showBenefits": true
+    },
+    {
+      "type": "split",
+      "eyebrow": "For the entrance",
+      "title": "Self-service that still feels personal.",
+      "description": "A clear kiosk experience helps visitors check in confidently, while your team stays informed.",
+      "checklist": [
+        "Guided, step-by-step arrival",
+        "Invitation, QR or walk-in paths",
+        "Visitor badge as part of the flow"
+      ],
+      "visual": "kiosk"
+    },
+    {
+      "type": "split",
+      "eyebrow": "For hosts",
+      "title": "Keep hosts in the loop.",
+      "description": "See who is expected, who has arrived, which hosts need to respond, and what needs attention, all in one practical workspace.",
+      "checklist": [
+        "Prepare for scheduled arrivals before they reach reception",
+        "Make guest and host communication part of the same workflow",
+        "Bring key visit details into view when the team needs them"
+      ],
+      "visual": "approvals",
+      "reverse": true
+    },
+    {
+      "type": "workflow",
+      "eyebrow": "How a visit works",
+      "title": "Every step, thoughtfully connected.",
+      "steps": [
+        {
+          "icon": "message",
+          "title": "Invite",
+          "description": "Send a polished invitation with the details guests need."
+        },
+        {
+          "icon": "calendar",
+          "title": "Pre-register",
+          "description": "Collect visit details before arrival."
+        },
+        {
+          "icon": "door",
+          "title": "Arrive",
+          "description": "Offer a guided check-in at any entrance."
+        },
+        {
+          "icon": "file",
+          "title": "Acknowledge",
+          "description": "Present the right policies and record acknowledgement."
+        },
+        {
+          "icon": "badge",
+          "title": "Badge",
+          "description": "Issue a clear, professional visitor badge."
+        },
+        {
+          "icon": "userCheck",
+          "title": "Host response",
+          "description": "Notify hosts and route decisions promptly."
+        },
+        {
+          "icon": "logout",
+          "title": "Check out",
+          "description": "Close each visit and keep occupancy current."
+        },
+        {
+          "icon": "clipboardList",
+          "title": "Review",
+          "description": "Look back at site activity when you need to."
+        }
+      ]
+    },
+    {
+      "type": "galleryPreview",
+      "eyebrow": "Product views",
+      "title": "AceVisitor in focus.",
+      "description": "A closer look at the experiences guests and teams use each day.",
+      "limit": 3,
+      "action": {
+        "label": "Open the full gallery",
+        "href": "/gallery"
+      }
+    },
+    {
+      "type": "cards",
+      "eyebrow": "For administrators",
+      "title": "Consistent standards without slowing teams down.",
+      "description": "Set shared expectations and understand activity across locations.",
+      "columns": 3,
+      "items": [
+        {
+          "icon": "network",
+          "title": "Organization structure",
+          "description": "Model sites and teams in a way that reflects how your organization works."
+        },
+        {
+          "icon": "layers",
+          "title": "Shared standards",
+          "description": "Apply a common visitor process while leaving room for site realities."
+        },
+        {
+          "icon": "eye",
+          "title": "Activity visibility",
+          "description": "Review visitor activity across locations and workflows."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "title": "Bring every visitor workflow together.",
+      "description": "Let’s map the right platform experience for your people, sites and arrival points.",
+      "primary": {
+        "label": "Request a demo",
+        "href": "/contact#request-demo"
+      },
+      "secondary": {
+        "label": "Explore solutions",
+        "href": "/solutions"
+      }
+    }
+  ],
+  "seo": {
+    "title": "Platform | AceVisitor",
+    "description": "Pre-registration, guided check-in, host notifications, visitor badges and reporting in one connected visitor-management platform.",
+    "image": "/images/og-default.jpg",
+    "canonical": "/platform/"
+  }
+}

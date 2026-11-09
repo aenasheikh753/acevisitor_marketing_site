@@ -1,0 +1,17 @@
+{
+  "slug": "contractor-vendor-access",
+  "kind": "solution",
+  "eyebrow": "Third-party access",
+  "name": "Contractor and vendor visits",
+  "icon": "contractor",
+  "description": "Bring recurring partners into a more organized arrival process with visit context, host coordination and policy acknowledgement.",
+  "benefits": [
+    "Structured visit details",
+    "Clear host and approval steps",
+    "Digital policy acknowledgement"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "visual": "approvals",
+  "sortOrder": 2
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "pre-registration",
+  "kind": "feature",
+  "name": "Pre-registration",
+  "icon": "calendar",
+  "description": "Capture visit details in advance and help guests arrive prepared.",
+  "benefits": [
+    "Simple invitations",
+    "Clear arrival details"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 1
+}

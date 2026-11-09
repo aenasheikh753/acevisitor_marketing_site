@@ -1,0 +1,10 @@
+{
+  "slug": "tenant-isolation",
+  "name": "Tenant isolation",
+  "description": "Keeps each organization’s data and operating context separate.",
+  "icon": "layers",
+  "verificationStatus": "unverified",
+  "owner": "",
+  "reviewDate": "",
+  "sortOrder": 2
+}

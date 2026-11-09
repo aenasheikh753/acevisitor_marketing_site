@@ -1,0 +1,14 @@
+{
+  "slug": "policy-workflows",
+  "kind": "feature",
+  "name": "Policy workflows",
+  "icon": "file",
+  "description": "Present agreements and record acknowledgement as part of the visit.",
+  "benefits": [
+    "Right policy per visit",
+    "Acknowledgement recorded"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "sortOrder": 6
+}
