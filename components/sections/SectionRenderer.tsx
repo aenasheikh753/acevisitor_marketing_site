@@ -6,16 +6,15 @@ import { CardGrid, CheckList } from "@/components/sections/Cards";
 import GalleryBrowser from "@/components/sections/GalleryBrowser";
 import { SplitRow } from "@/components/sections/Split";
 import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
+import Icon, { IconTile } from "@/components/ui/Icon";
+import Markdown from "@/components/ui/Markdown";
 import SectionShell, { type Tone } from "@/components/ui/Section";
 import { getPosts } from "@/lib/content/blog";
-import {
-  getFeatures,
-  getGalleryItems,
-  getIndustries,
-} from "@/lib/content/collections";
+import { getFeatures, getGalleryItems, getIndustries } from "@/lib/content/collections";
 import { getSiteSettings } from "@/lib/content/site";
 import type { LinkItem, Section as SectionData } from "@/lib/types";
+
+const CARD_SIZES = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
 function SectionAction({ action }: { action?: LinkItem }) {
   if (!action) return null;
@@ -54,7 +53,28 @@ function CtaBand({ section }: { section: Extract<SectionData, { type: "cta" }> }
   );
 }
 
-function Body({ section }: { section: SectionData }) {
+async function Solutions() {
+  const solutions = await getFeatures("solution");
+  return (
+    <div className="space-y-16 lg:space-y-24">
+      {solutions.map((solution, position) => (
+        <SplitRow
+          key={solution.slug}
+          eyebrow={solution.eyebrow}
+          title={solution.name}
+          description={solution.description}
+          checklist={solution.benefits}
+          visual={solution.visual}
+          image={solution.image}
+          imageAlt={solution.imageAlt}
+          reverse={position % 2 === 1}
+        />
+      ))}
+    </div>
+  );
+}
+
+async function Body({ section }: { section: SectionData }) {
   switch (section.type) {
     case "proofPoints":
       return (
@@ -70,29 +90,39 @@ function Body({ section }: { section: SectionData }) {
       );
 
     case "cards":
-      return <CardGrid items={section.items} columns={section.columns} />;
+      return (
+        <>
+          <CardGrid items={section.items} columns={section.columns} />
+          <SectionAction action={section.action} />
+        </>
+      );
 
-    case "features":
+    case "features": {
+      const features = await getFeatures("feature");
       return (
         <CardGrid
-          columns={4}
-          items={getFeatures("feature").map((feature) => ({
+          columns={3}
+          items={features.slice(0, section.limit).map((feature) => ({
             icon: feature.icon,
             title: feature.name,
             description: feature.description,
+            image: feature.image,
+            imageAlt: feature.imageAlt,
             benefits: section.showBenefits ? feature.benefits : undefined,
           }))}
         />
       );
+    }
+
+    case "solutions":
+      return <Solutions />;
 
     case "workflow":
       return (
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {section.steps.map((step, index) => (
             <li key={step.title} className="card reveal flex items-start gap-4 p-5">
-              <span className="icon-tile">
-                <Icon name={step.icon} />
-              </span>
+              <IconTile name={step.icon} />
               <div>
                 <p className="text-xs font-extrabold tracking-wider text-blue">{String(index + 1).padStart(2, "0")}</p>
                 <h3 className="heading-card text-navy">{step.title}</h3>
@@ -104,7 +134,7 @@ function Body({ section }: { section: SectionData }) {
       );
 
     case "industries": {
-      const industries = getIndustries().slice(0, section.limit);
+      const industries = (await getIndustries()).slice(0, section.limit);
       return (
         <>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -116,15 +146,13 @@ function Body({ section }: { section: SectionData }) {
                     alt={industry.imageAlt ?? ""}
                     width={800}
                     height={500}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    sizes={CARD_SIZES}
                     className="aspect-[8/5] w-full object-cover"
                   />
                 ) : null}
                 <div className="p-6">
-                  <span className="icon-tile">
-                    <Icon name={industry.icon} className="h-[22px] w-[22px]" />
-                  </span>
-                  <h3 className="heading-card mt-4 text-navy">{industry.name}</h3>
+                  <IconTile name={industry.icon} className="h-[22px] w-[22px]" />
+                  <h3 className={`heading-card text-navy ${industry.icon ? "mt-4" : ""}`}>{industry.name}</h3>
                   <p className="mt-2 text-[0.95rem] leading-7 text-muted">{industry.scenario}</p>
                   {section.limit ? null : <CheckList items={industry.benefits} className="mt-4" />}
                 </div>
@@ -136,37 +164,39 @@ function Body({ section }: { section: SectionData }) {
       );
     }
 
-    case "gallery":
-      return <GalleryBrowser items={getGalleryItems()} ui={getSiteSettings().ui.gallery} />;
+    case "gallery": {
+      const [items, { ui }] = await Promise.all([getGalleryItems(), getSiteSettings()]);
+      return <GalleryBrowser items={items} ui={ui.gallery} />;
+    }
 
-    case "galleryPreview":
+    case "galleryPreview": {
+      const items = (await getGalleryItems()).slice(0, section.limit);
       return (
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {getGalleryItems()
-              .slice(0, section.limit)
-              .map((item) => (
-                <figure key={item.slug} className="card reveal overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    width={800}
-                    height={500}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="aspect-[8/5] w-full object-cover"
-                  />
-                  <figcaption className="p-4 font-bold text-navy">{item.caption}</figcaption>
-                </figure>
-              ))}
+            {items.map((item) => (
+              <figure key={item.slug} className="card reveal overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  width={800}
+                  height={500}
+                  sizes={CARD_SIZES}
+                  className="aspect-[8/5] w-full object-cover"
+                />
+                <figcaption className="p-4 font-bold text-navy">{item.caption}</figcaption>
+              </figure>
+            ))}
           </div>
           <SectionAction action={section.action} />
         </>
       );
+    }
 
     case "latestPosts":
       return (
         <>
-          <PostGrid posts={getPosts().slice(0, section.limit)} />
+          <PostGrid posts={(await getPosts()).slice(0, section.limit)} />
           <SectionAction action={section.action} />
         </>
       );
@@ -189,20 +219,17 @@ function Body({ section }: { section: SectionData }) {
       );
 
     case "siteIndex": {
-      const { footer } = getSiteSettings();
+      const [{ footer }, posts] = await Promise.all([getSiteSettings(), getPosts()]);
       const groups = [
         ...footer.groups,
         { title: section.legalTitle, links: footer.legalLinks },
-        {
-          title: section.postsTitle,
-          links: getPosts().map((post) => ({ label: post.title, href: `/blog/${post.slug}` })),
-        },
+        { title: section.postsTitle, links: posts.map((post) => ({ label: post.title, href: `/blog/${post.slug}` })) },
       ];
       return (
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {groups.map((group) => (
             <nav key={group.title} aria-label={group.title}>
-              <h2 className="heading-card text-navy">{group.title}</h2>
+              <h3 className="heading-card text-navy">{group.title}</h3>
               <ul className="mt-4 space-y-2.5">
                 {group.links.map((link) => (
                   <li key={link.href}>
@@ -218,35 +245,46 @@ function Body({ section }: { section: SectionData }) {
       );
     }
 
+    case "richText":
+      return (
+        <div className="max-w-3xl">
+          <Markdown>{section.body}</Markdown>
+        </div>
+      );
+
     case "form": {
-      const { contact, footer } = getSiteSettings();
+      const { contact } = await getSiteSettings();
+      const AsideHeading = section.title ? "h3" : "h2";
+      const AsideItemHeading = section.title ? "h4" : "h3";
       const details = [
-        { icon: "mail" as const, value: contact.email, href: `mailto:${contact.email}` },
-        { icon: "phone" as const, value: contact.phone, href: `tel:${contact.phone}` },
-        { icon: "map" as const, value: contact.address },
+        { icon: "mail", value: contact.email, href: `mailto:${contact.email}` },
+        { icon: "phone", value: contact.phone, href: `tel:${contact.phone}` },
+        { icon: "map", value: contact.address },
       ].filter((detail) => detail.value);
       return (
         <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
-          <div id="request-demo" className="min-w-0">
-            <ContactForm copy={section.form} privacyHref={footer.legalLinks[0].href} />
+          <div className="min-w-0">
+            <ContactForm formName={section.formName} copy={section.form} />
           </div>
           <aside>
             {section.asideEyebrow ? <p className="eyebrow mb-2">{section.asideEyebrow}</p> : null}
-            <h3 className="heading-card text-navy">{section.asideTitle}</h3>
+            <AsideHeading className="heading-card text-navy">{section.asideTitle}</AsideHeading>
             {section.asideDescription ? <p className="mt-2 leading-7 text-muted">{section.asideDescription}</p> : null}
-            <ul className="mt-5 space-y-5">
-              {section.asideItems?.map((item) => (
-                <li key={item.title} className="flex items-start gap-4">
-                  <span className="icon-tile">
-                    <Icon name={item.icon} />
-                  </span>
-                  <div>
-                    <p className="font-bold text-navy">{item.title}</p>
-                    <p className="mt-1 text-sm leading-6 text-muted">{item.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            {section.asideChecklist?.length ? <CheckList items={section.asideChecklist} className="mt-5" /> : null}
+            {section.asideItems?.length ? (
+              <ul className="mt-5 space-y-5">
+                {section.asideItems.map((item) => (
+                  <li key={item.title} className="flex items-start gap-4">
+                    <IconTile name={item.icon} />
+                    <div>
+                      <AsideItemHeading className="font-bold text-navy">{item.title}</AsideItemHeading>
+                      <p className="mt-1 text-sm leading-6 text-muted">{item.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <SectionAction action={section.asideAction} />
             {details.length ? (
               <address className="mt-8 space-y-2 border-t border-line pt-6 not-italic">
                 <p className="font-bold text-navy">{contact.heading}</p>
@@ -292,28 +330,6 @@ export default function SectionRenderer({ sections }: { sections: SectionData[] 
                 <SplitRow {...section} />
               </div>
             </section>
-          );
-        }
-
-        if (section.type === "solutions") {
-          return (
-            <SectionShell key={key} tone={tone} eyebrow={section.eyebrow} title={section.title} description={section.description}>
-              <div className="space-y-16 lg:space-y-24">
-                {getFeatures("solution").map((solution, position) => (
-                  <SplitRow
-                    key={solution.slug}
-                    eyebrow={solution.eyebrow}
-                    title={solution.name}
-                    description={solution.description}
-                    checklist={solution.benefits}
-                    visual={solution.visual}
-                    image={solution.image}
-                    imageAlt={solution.imageAlt}
-                    reverse={position % 2 === 1}
-                  />
-                ))}
-              </div>
-            </SectionShell>
           );
         }
 

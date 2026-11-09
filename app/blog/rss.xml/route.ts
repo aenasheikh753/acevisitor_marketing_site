@@ -2,17 +2,14 @@ import { getPosts } from "@/lib/content/blog";
 import { getPage, getSiteSettings } from "@/lib/content/site";
 import { absoluteUrl } from "@/lib/seo";
 
-export const dynamic = "force-static";
-
 const escapeXml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-export function GET() {
-  const site = getSiteSettings();
-  const blog = getPage("blog");
-  const items = getPosts()
+export async function GET() {
+  const [site, blog, posts] = await Promise.all([getSiteSettings(), getPage("blog"), getPosts()]);
+  const items = posts
     .map((post) => {
-      const url = absoluteUrl(post.seo.canonical);
+      const url = absoluteUrl(post.seo.canonical, site.siteUrl);
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${url}</link>
@@ -27,7 +24,7 @@ export function GET() {
 <rss version="2.0">
   <channel>
     <title>${escapeXml(blog?.seo.title ?? site.brandName)}</title>
-    <link>${absoluteUrl("/blog/")}</link>
+    <link>${absoluteUrl("/blog", site.siteUrl)}</link>
     <description>${escapeXml(blog?.seo.description ?? site.description)}</description>
     <language>en-us</language>
 ${items}

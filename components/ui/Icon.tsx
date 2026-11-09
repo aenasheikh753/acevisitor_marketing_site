@@ -26,8 +26,10 @@ import {
   Monitor,
   Network,
   Phone,
+  QrCode,
   Search,
   Server,
+  Settings,
   ShieldCheck,
   Sparkles,
   UserCheck,
@@ -35,6 +37,8 @@ import {
   Wallet,
   Wrench,
 } from "lucide-react";
+import Image from "next/image";
+import type { IconValue } from "@/lib/types";
 
 const icons = {
   arrowRight: ArrowRight,
@@ -66,17 +70,45 @@ const icons = {
   monitor: Monitor,
   network: Network,
   phone: Phone,
+  qr: QrCode,
   search: Search,
   server: Server,
+  settings: Settings,
   shield: ShieldCheck,
   sparkles: Sparkles,
   userCheck: UserCheck,
   users: Users,
 };
 
-export type IconName = keyof typeof icons;
+/** The icon names the admin panel can offer in a picker. */
+export const iconNames = Object.keys(icons);
 
-export default function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: string }) {
-  const Glyph = icons[name] ?? Sparkles;
+const isImage = (value: string) => /^(\/|https?:)/.test(value);
+
+/** Renders a named icon or an uploaded icon image; an empty value renders nothing. */
+export default function Icon({ name, className = "h-5 w-5" }: { name: IconValue; className?: string }) {
+  if (!name) return null;
+  if (isImage(name)) {
+    return (
+      <Image
+        src={name}
+        alt=""
+        width={24}
+        height={24}
+        unoptimized={name.endsWith(".svg")}
+        className={`${className} object-contain`}
+      />
+    );
+  }
+  const Glyph = icons[name as keyof typeof icons] ?? Sparkles;
   return <Glyph aria-hidden="true" className={className} strokeWidth={1.8} />;
+}
+
+export function IconTile({ name, className }: { name: IconValue; className?: string }) {
+  if (!name) return null;
+  return (
+    <span className="icon-tile">
+      <Icon name={name} className={className} />
+    </span>
+  );
 }

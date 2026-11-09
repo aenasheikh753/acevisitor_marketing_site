@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import type { BlogPost, Seo } from "@/lib/types";
 import { getAuthor, getCategory } from "@/lib/content/blog";
 import { getSiteSettings } from "@/lib/content/site";
+import type { BlogPost, Seo, SiteSettings } from "@/lib/types";
 
-export function absoluteUrl(pathOrUrl: string): string {
-  const { siteUrl } = getSiteSettings();
+export function absoluteUrl(pathOrUrl: string, siteUrl: string): string {
   const url = new URL(pathOrUrl, siteUrl);
   url.pathname = url.pathname.replace(/\/$/, "");
   return url.toString();
@@ -16,17 +15,17 @@ type MetadataOptions = {
   noindex?: boolean;
 };
 
-export function buildMetadata(seo: Seo, options: MetadataOptions = {}): Metadata {
-  const { brandName, defaultSocialImage } = getSiteSettings();
-  const image = absoluteUrl(seo.image || defaultSocialImage);
-  const url = absoluteUrl(seo.canonical);
+export async function buildMetadata(seo: Seo, options: MetadataOptions = {}): Promise<Metadata> {
+  const { brandName, defaultSocialImage, siteUrl } = await getSiteSettings();
+  const image = absoluteUrl(seo.image || defaultSocialImage, siteUrl);
+  const url = absoluteUrl(seo.canonical, siteUrl);
 
   return {
     title: { absolute: seo.title },
     description: seo.description,
     alternates: {
       canonical: url,
-      types: { "application/rss+xml": absoluteUrl("/blog/rss.xml") },
+      types: { "application/rss+xml": absoluteUrl("/blog/rss.xml", siteUrl) },
     },
     openGraph: {
       type: options.type ?? "website",
@@ -47,47 +46,49 @@ export function buildMetadata(seo: Seo, options: MetadataOptions = {}): Metadata
   };
 }
 
-export function organizationJsonLd() {
-  const site = getSiteSettings();
+export function organizationJsonLd(site: SiteSettings) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.brandName,
     legalName: site.legalEntity,
-    url: absoluteUrl("/"),
-    logo: absoluteUrl(site.logo.src),
+    url: absoluteUrl("/", site.siteUrl),
+    logo: absoluteUrl(site.logo.src, site.siteUrl),
     ...(site.social.length ? { sameAs: site.social.map((link) => link.href) } : {}),
   };
 }
 
-export function websiteJsonLd() {
-  const site = getSiteSettings();
+export function websiteJsonLd(site: SiteSettings) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: site.brandName,
     description: site.description,
-    url: absoluteUrl("/"),
+    url: absoluteUrl("/", site.siteUrl),
   };
 }
 
-export function articleJsonLd(post: BlogPost) {
-  const site = getSiteSettings();
+export async function articleJsonLd(post: BlogPost) {
+  const [site, category, author] = await Promise.all([
+    getSiteSettings(),
+    getCategory(post.category),
+    getAuthor(post.author),
+  ]);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.seo.description,
-    image: absoluteUrl(post.seo.image || post.coverImage),
+    image: absoluteUrl(post.seo.image || post.coverImage, site.siteUrl),
     datePublished: post.date,
-    articleSection: getCategory(post.category)?.name,
-    author: { "@type": "Person", name: getAuthor(post.author)?.name ?? site.brandName },
+    articleSection: category?.name,
+    author: { "@type": "Person", name: author?.name ?? site.brandName },
     publisher: {
       "@type": "Organization",
       name: site.brandName,
-      logo: { "@type": "ImageObject", url: absoluteUrl(site.logo.src) },
+      logo: { "@type": "ImageObject", url: absoluteUrl(site.logo.src, site.siteUrl) },
     },
-    mainEntityOfPage: absoluteUrl(post.seo.canonical),
+    mainEntityOfPage: absoluteUrl(post.seo.canonical, site.siteUrl),
   };
 }
 

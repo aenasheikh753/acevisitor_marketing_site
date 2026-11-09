@@ -17,7 +17,8 @@ export function PostGrid({ posts, headingLevel = "h3" }: { posts: BlogPost[]; he
   );
 }
 
-export default function PostCard({ post, headingLevel: Heading = "h3" }: { post: BlogPost; headingLevel?: HeadingLevel }) {
+export default async function PostCard({ post, headingLevel: Heading = "h3" }: { post: BlogPost; headingLevel?: HeadingLevel }) {
+  const [category, author] = await Promise.all([getCategory(post.category), getAuthor(post.author)]);
   return (
     <article className="card card-hover reveal flex flex-col overflow-hidden">
       <Image
@@ -29,7 +30,7 @@ export default function PostCard({ post, headingLevel: Heading = "h3" }: { post:
         className="aspect-video w-full object-cover"
       />
       <div className="flex flex-1 flex-col p-6">
-        <p className="eyebrow">{getCategory(post.category)?.name}</p>
+        <p className="eyebrow">{category?.name}</p>
         <Heading className="heading-card mt-3 text-navy">
           <Link href={`/blog/${post.slug}`} className="transition-colors hover:text-blue">
             {post.title}
@@ -37,7 +38,7 @@ export default function PostCard({ post, headingLevel: Heading = "h3" }: { post:
         </Heading>
         <p className="mt-2 flex-1 text-[0.95rem] leading-7 text-muted">{post.summary}</p>
         <p className="mt-4 text-sm text-muted">
-          {getAuthor(post.author)?.name} · <time dateTime={post.date}>{formatDate(post.date)}</time>
+          {author?.name} · <time dateTime={post.date}>{formatDate(post.date)}</time>
         </p>
       </div>
     </article>

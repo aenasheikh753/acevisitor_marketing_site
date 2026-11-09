@@ -1,7 +1,8 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
-import Visual from "@/components/visuals/Visual";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
+import Visual from "@/components/visuals/Visual";
 import type { LinkItem, VisualName } from "@/lib/types";
 
 type PageHeroProps = {
@@ -9,9 +10,12 @@ type PageHeroProps = {
   title: string;
   subtitle?: string;
   visual?: VisualName;
+  image?: string;
+  imageAlt?: string;
   primaryAction?: LinkItem;
   secondaryAction?: LinkItem;
   proofLine?: string;
+  proofs?: { label: string; detail: string }[];
   large?: boolean;
   children?: ReactNode;
 };
@@ -21,21 +25,20 @@ export default function PageHero({
   title,
   subtitle,
   visual = "none",
+  image,
+  imageAlt,
   primaryAction,
   secondaryAction,
   proofLine,
+  proofs,
   large,
   children,
 }: PageHeroProps) {
-  const hasVisual = visual !== "none";
+  const hasMedia = Boolean(image) || visual !== "none";
   return (
     <section className="tone-dark relative overflow-hidden">
       <div aria-hidden="true" className="hero-rings" />
-      <div
-        className={`container-page relative grid items-center gap-12 py-16 lg:py-24 ${
-          hasVisual ? "lg:grid-cols-[1fr_1.05fr]" : ""
-        }`}
-      >
+      <div className={`container-page relative grid items-center gap-12 py-16 lg:py-24 ${hasMedia ? "lg:grid-cols-[1fr_1.05fr]" : ""}`}>
         <div className="max-w-3xl">
           {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
           <h1 className={`${large ? "heading-hero" : "heading-page"} mt-5 text-white`}>{title}</h1>
@@ -55,6 +58,16 @@ export default function PageHero({
               ) : null}
             </div>
           ) : null}
+          {proofs?.length ? (
+            <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-white/15 pt-6">
+              {proofs.map((proof) => (
+                <div key={proof.label}>
+                  <dt className="font-display font-bold text-blue-light">{proof.label}</dt>
+                  <dd className="on-dark-muted mt-1 text-sm leading-5">{proof.detail}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
           {proofLine ? (
             <p className="mt-7 flex items-center gap-2 text-sm font-semibold text-white">
               <span aria-hidden="true" className="h-2 w-2 rounded-pill bg-blue-bright" />
@@ -63,9 +76,21 @@ export default function PageHero({
           ) : null}
           {children}
         </div>
-        {hasVisual ? (
+        {hasMedia ? (
           <div className="min-w-0">
-            <Visual name={visual} />
+            {image ? (
+              <Image
+                src={image}
+                alt={imageAlt ?? ""}
+                width={1200}
+                height={750}
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="aspect-[8/5] w-full rounded-panel object-cover shadow-lift"
+              />
+            ) : (
+              <Visual name={visual} />
+            )}
           </div>
         ) : null}
       </div>

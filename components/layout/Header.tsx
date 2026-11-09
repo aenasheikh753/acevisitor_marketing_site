@@ -59,7 +59,7 @@ export default function Header({ brandName, logo, menu, loginLabel, cta, ui }: H
 
         <div className="hidden items-center justify-end gap-2 xl:flex">
           {login}
-          <Button href={cta.href}>{cta.label}</Button>
+          <Button href={cta.href} className="whitespace-nowrap">{cta.label}</Button>
         </div>
 
         <button

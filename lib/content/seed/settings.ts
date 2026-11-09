@@ -29,6 +29,10 @@ export const siteSettings: SiteSettings = {
       "href": "/industries"
     },
     {
+      "label": "Gallery",
+      "href": "/gallery"
+    },
+    {
       "label": "Security",
       "href": "/security"
     },
@@ -47,20 +51,37 @@ export const siteSettings: SiteSettings = {
   ],
   "loginLabel": "Login",
   "cta": {
-    "label": "Request Demo",
-    "href": "/contact#request-demo"
+    "label": "Request a Demo",
+    "href": "/request-demo"
   },
   "footer": {
     "summary": "A calmer, clearer way to welcome every visitor — across every entrance and every site.",
     "companyLine": "AceVisitor is a product of Datacompute Consulting LLC.",
     "groups": [
       {
-        "title": "Product",
+        "title": "Platform",
         "links": [
           {
-            "label": "Platform",
+            "label": "Platform overview",
             "href": "/platform"
           },
+          {
+            "label": "Screenshot gallery",
+            "href": "/gallery"
+          },
+          {
+            "label": "Security architecture",
+            "href": "/security"
+          },
+          {
+            "label": "Request a demo",
+            "href": "/request-demo"
+          }
+        ]
+      },
+      {
+        "title": "Use cases",
+        "links": [
           {
             "label": "Solutions",
             "href": "/solutions"
@@ -68,10 +89,6 @@ export const siteSettings: SiteSettings = {
           {
             "label": "Industries",
             "href": "/industries"
-          },
-          {
-            "label": "Gallery",
-            "href": "/gallery"
           }
         ]
       },
@@ -81,10 +98,6 @@ export const siteSettings: SiteSettings = {
           {
             "label": "About",
             "href": "/about"
-          },
-          {
-            "label": "Security",
-            "href": "/security"
           },
           {
             "label": "Contact",
@@ -112,7 +125,7 @@ export const siteSettings: SiteSettings = {
     ],
     "legalLinks": [
       {
-        "label": "Privacy",
+        "label": "Privacy Policy",
         "href": "/privacy-policy"
       },
       {
@@ -120,7 +133,11 @@ export const siteSettings: SiteSettings = {
         "href": "/terms"
       }
     ],
-    "copyright": "© 2026 AceVisitor. All rights reserved."
+    "copyright": "© 2026 AceVisitor. All rights reserved.",
+    "companyLink": {
+      "label": "Learn more at datacompute.net",
+      "href": "https://datacompute.net"
+    }
   },
   "contact": {
     "heading": "Reach us directly",
@@ -141,7 +158,6 @@ export const siteSettings: SiteSettings = {
     "blog": {
       "categoriesLabel": "Filter by category",
       "allCategories": "All",
-      "readMore": "Read article",
       "backToAll": "All insights",
       "writtenBy": "Written by",
       "categoryEyebrow": "Category",

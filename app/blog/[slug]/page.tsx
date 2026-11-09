@@ -10,15 +10,13 @@ import { articleJsonLd, buildMetadata, formatDate } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return getPosts().map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  return (await getPosts()).map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   return post
     ? buildMetadata(
         { ...post.seo, image: post.seo.image || post.coverImage },
@@ -29,11 +27,14 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) notFound();
-  const category = getCategory(post.category);
-  const author = getAuthor(post.author);
-  const { blog } = getSiteSettings().ui;
+  const [category, author, { ui }] = await Promise.all([
+    getCategory(post.category),
+    getAuthor(post.author),
+    getSiteSettings(),
+  ]);
+  const { blog } = ui;
 
   return (
     <article>
@@ -79,7 +80,7 @@ export default async function BlogPostPage({ params }: Props) {
           </aside>
         ) : null}
       </div>
-      <JsonLd data={articleJsonLd(post)} />
+      <JsonLd data={await articleJsonLd(post)} />
     </article>
   );
 }

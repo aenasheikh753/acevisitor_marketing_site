@@ -1,0 +1,12 @@
+import type { Industry } from "@/lib/types";
+
+export const industries: Industry[] = [
+  { slug: "corporate-offices", name: "Corporate offices", icon: "building", sortOrder: 1, scenario: "Professional arrival experience for clients and candidates, with host approval and NDA signing built into check-in.", benefits: ["Meeting-linked pre-registration", "Branded lobby kiosks", "Multi-floor zone badges"] },
+  { slug: "healthcare", name: "Healthcare", icon: "health", sortOrder: 2, scenario: "Controlled access for vendors, contractors and visitors in clinical environments where restricted areas matter.", benefits: ["Vendor credential checks", "Ward and zone restrictions", "Visiting-hours enforcement"] },
+  { slug: "education", name: "Education", icon: "education", sortOrder: 3, scenario: "Campus-wide visitor and contractor control with clear safeguarding rules at every entrance.", benefits: ["Parent and guardian sign-in", "Contractor induction records", "Campus-wide reporting"] },
+  { slug: "government", name: "Government", icon: "government", sortOrder: 4, scenario: "Structured visitor handling for facilities that require identity verification and detailed retention of records.", benefits: ["Identity verification steps", "Escort-required workflows", "Long-term audit retention"] },
+  { slug: "data-centers", name: "Data centers", icon: "server", sortOrder: 5, scenario: "Strict access governance for colocation and critical infrastructure, down to the room and cage.", benefits: ["Pre-approved access windows", "Escort and two-person rules", "Granular zone permissions"] },
+  { slug: "construction", name: "Construction & industrial", icon: "hardHat", sortOrder: 6, scenario: "Site inductions, safety briefings and contractor tracking at gates with high daily turnover.", benefits: ["Digital safety briefings", "Certification expiry checks", "Live on-site headcount"] },
+  { slug: "finance", name: "Finance", icon: "finance", sortOrder: 7, scenario: "Coordinate guest arrivals with clear host context and consistent procedures.", benefits: ["Professional client arrivals", "Host notifications", "Consistent procedures"] },
+  { slug: "other-enterprise-sites", name: "Other enterprise sites", icon: "globe", sortOrder: 8, scenario: "Explore workflows that reflect the people and places your organization supports.", benefits: ["Adapted arrival flows", "Shared standards", "Local context"] },
+];

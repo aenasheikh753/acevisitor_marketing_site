@@ -5,18 +5,18 @@ import { getPosts } from "@/lib/content/blog";
 import { getPage } from "@/lib/content/site";
 import { buildMetadata } from "@/lib/seo";
 
-export function generateMetadata() {
-  const page = getPage("blog");
+export async function generateMetadata() {
+  const page = await getPage("blog");
   return page ? buildMetadata(page.seo) : {};
 }
 
-export default function BlogIndexPage() {
-  const page = getPage("blog");
+export default async function BlogIndexPage() {
+  const page = await getPage("blog");
   if (!page) notFound();
   return (
     <>
       <PageHero eyebrow={page.eyebrow} title={page.title} subtitle={page.subtitle} />
-      <BlogListing posts={getPosts()} />
+      <BlogListing posts={await getPosts()} />
     </>
   );
 }

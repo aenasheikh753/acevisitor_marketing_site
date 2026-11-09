@@ -1,7 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import Icon from "@/components/ui/Icon";
-import type { SiteSettings } from "@/lib/types";
+import type { LinkItem, SiteSettings } from "@/lib/types";
+
+function FooterLink({ link }: { link: LinkItem }) {
+  return link.href.startsWith("http") ? (
+    <a className="footer-link" href={link.href} rel="noopener noreferrer">
+      {link.label}
+    </a>
+  ) : (
+    <Link className="footer-link" href={link.href}>
+      {link.label}
+    </Link>
+  );
+}
 
 export default function Footer({ site }: { site: SiteSettings }) {
   const { footer, contact, social, ui } = site;
@@ -9,14 +21,16 @@ export default function Footer({ site }: { site: SiteSettings }) {
 
   return (
     <footer className="bg-navy-deep text-white">
-      <div className="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.5fr_repeat(3,1fr)]">
-        <div className="max-w-sm">
+      <div className="container-page flex flex-col gap-10 py-14 lg:flex-row lg:gap-16">
+        <div className="max-w-sm lg:flex-[1.3]">
           <Link href="/" className="flex w-fit items-center gap-2.5 rounded-small" aria-label={ui.homeLabel}>
             <Image src={site.logo.src} alt="" width={38} height={44} loading="lazy" className="h-11 w-auto" />
             <span className="font-display text-xl font-extrabold tracking-tight">{site.brandName}</span>
           </Link>
           <p className="on-dark-muted mt-4 text-sm leading-6">{footer.summary}</p>
-          <p className="on-dark-muted mt-4 text-sm leading-6">{footer.companyLine}</p>
+          <p className="on-dark-muted mt-4 text-sm leading-6">
+            {footer.companyLine} {footer.companyLink ? <FooterLink link={footer.companyLink} /> : null}
+          </p>
           {hasContact ? (
             <address className="on-dark-muted mt-4 space-y-2 text-sm not-italic">
               {contact.email ? (
@@ -41,20 +55,20 @@ export default function Footer({ site }: { site: SiteSettings }) {
           ) : null}
         </div>
 
-        {footer.groups.map((group) => (
-          <nav key={group.title} aria-label={group.title}>
-            <h2 className="font-display text-sm font-bold">{group.title}</h2>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {group.links.map((link) => (
-                <li key={link.href}>
-                  <Link className="footer-link" href={link.href}>
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))}
+        <div className="grid flex-[2] grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-10">
+          {footer.groups.map((group) => (
+            <nav key={group.title} aria-label={group.title}>
+              <h2 className="font-display text-sm font-bold">{group.title}</h2>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <FooterLink link={link} />
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
       </div>
 
       <div className="border-t border-white/15">
@@ -64,15 +78,7 @@ export default function Footer({ site }: { site: SiteSettings }) {
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {[...footer.legalLinks, ...social].map((link) => (
                 <li key={link.href}>
-                  {link.href.startsWith("http") ? (
-                    <a className="footer-link" href={link.href} rel="noopener noreferrer">
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link className="footer-link" href={link.href}>
-                      {link.label}
-                    </Link>
-                  )}
+                  <FooterLink link={link} />
                 </li>
               ))}
             </ul>

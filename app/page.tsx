@@ -1,30 +1,15 @@
 import { notFound } from "next/navigation";
-import SectionRenderer from "@/components/sections/SectionRenderer";
-import PageHero from "@/components/ui/PageHero";
+import PageView from "@/components/sections/PageView";
 import { getPage } from "@/lib/content/site";
 import { buildMetadata } from "@/lib/seo";
 
-export function generateMetadata() {
-  const page = getPage("home");
+export async function generateMetadata() {
+  const page = await getPage("home");
   return page ? buildMetadata(page.seo) : {};
 }
 
-export default function HomePage() {
-  const page = getPage("home");
+export default async function HomePage() {
+  const page = await getPage("home");
   if (!page) notFound();
-  return (
-    <>
-      <PageHero
-        large
-        eyebrow={page.eyebrow}
-        title={page.title}
-        subtitle={page.subtitle}
-        visual={page.heroVisual}
-        primaryAction={page.primaryAction}
-        secondaryAction={page.secondaryAction}
-        proofLine={page.proofLine}
-      />
-      <SectionRenderer sections={page.sections} />
-    </>
-  );
+  return <PageView page={page} large />;
 }

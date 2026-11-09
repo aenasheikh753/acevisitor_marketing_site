@@ -1,27 +1,28 @@
 import type { Mockups, Page, SiteSettings } from "@/lib/types";
-import { mockups } from "./mockups";
-import { pages } from "./pages";
-import { siteSettings } from "./settings";
+import { fetchContent } from "./client";
+import { mockups } from "./seed/mockups";
+import { pages } from "./seed/pages";
+import { siteSettings } from "./seed/settings";
 
-export function getSiteSettings(): SiteSettings {
-  return siteSettings;
+export function getSiteSettings(): Promise<SiteSettings> {
+  return fetchContent("site", siteSettings);
 }
 
-export function getMockups(): Mockups {
-  return mockups;
+export function getMockups(): Promise<Mockups> {
+  return fetchContent("mockups", mockups);
 }
 
-export function getAllPages(): Page[] {
-  return pages;
+export function getAllPages(): Promise<Page[]> {
+  return fetchContent("pages", pages);
 }
 
-export function getPage(slug: string): Page | undefined {
-  return pages.find((page) => page.slug === slug);
+export async function getPage(slug: string): Promise<Page | undefined> {
+  return (await getAllPages()).find((page) => page.slug === slug);
 }
 
 /** Slugs with their own route, so app/[slug] must not generate them. */
 const DEDICATED_ROUTES = new Set(["home", "blog"]);
 
-export function getGenericPageSlugs(): string[] {
-  return pages.map((page) => page.slug).filter((slug) => !DEDICATED_ROUTES.has(slug));
+export async function getGenericPageSlugs(): Promise<string[]> {
+  return (await getAllPages()).map((page) => page.slug).filter((slug) => !DEDICATED_ROUTES.has(slug));
 }

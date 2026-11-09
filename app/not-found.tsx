@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import { getSiteSettings } from "@/lib/content/site";
 
-export function generateMetadata(): Metadata {
-  const { brandName, ui } = getSiteSettings();
+export async function generateMetadata(): Promise<Metadata> {
+  const { brandName, ui } = await getSiteSettings();
   return {
     title: { absolute: `${ui.notFound.title} | ${brandName}` },
     description: ui.notFound.description,
@@ -11,8 +11,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function NotFound() {
-  const { notFound } = getSiteSettings().ui;
+export default async function NotFound() {
+  const { notFound } = (await getSiteSettings()).ui;
   return (
     <PageHero
       eyebrow={notFound.eyebrow}

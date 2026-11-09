@@ -5,15 +5,16 @@ import { getCategories } from "@/lib/content/blog";
 import { getSiteSettings } from "@/lib/content/site";
 import type { BlogPost } from "@/lib/types";
 
-export default function BlogListing({ posts, activeCategory }: { posts: BlogPost[]; activeCategory?: string }) {
-  const { blog } = getSiteSettings().ui;
+export default async function BlogListing({ posts, activeCategory }: { posts: BlogPost[]; activeCategory?: string }) {
+  const [{ ui }, categories] = await Promise.all([getSiteSettings(), getCategories()]);
+  const { blog } = ui;
   return (
     <Section tone="white">
       <nav aria-label={blog.categoriesLabel} className="mb-10 flex flex-wrap gap-2">
         <Link href="/blog" className="chip" aria-current={activeCategory ? undefined : "page"}>
           {blog.allCategories}
         </Link>
-        {getCategories().map((category) => (
+        {categories.map((category) => (
           <Link
             key={category.slug}
             href={`/blog/category/${category.slug}`}

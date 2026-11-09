@@ -3,27 +3,27 @@ import type { Mockups } from "@/lib/types";
 export const mockups: Mockups = {
   "dashboard": {
     "label": "AceVisitor site overview showing visitor counts, arrival activity and recent visitors.",
-    "workspace": "Site overview · Dallas HQ",
-    "title": "",
+    "workspace": "Administration Console · Dallas Headquarters",
+    "title": "Visitor activity",
     "live": "Live",
     "menu": [
-      "Overview",
+      "Dashboard",
       "Visitors",
-      "Approvals",
-      "Reports"
+      "Badges",
+      "Sites"
     ],
     "stats": [
       {
-        "label": "On site",
-        "value": "42"
+        "label": "On site now",
+        "value": "38"
       },
       {
-        "label": "Expected",
-        "value": "18"
+        "label": "Expected today",
+        "value": "112"
       },
       {
-        "label": "Pending",
-        "value": "3"
+        "label": "Contractors",
+        "value": "17"
       }
     ],
     "chartTitle": "Arrivals today",
@@ -45,32 +45,32 @@ export const mockups: Mockups = {
     "listTitle": "Recent visitors",
     "visitors": [
       {
-        "initials": "AR",
-        "name": "Amira Rahman",
-        "detail": "Meeting · Main entrance",
+        "initials": "RS",
+        "name": "Robert Smith",
+        "detail": "Northstar Technology",
         "status": "success",
-        "statusLabel": "Approved"
+        "statusLabel": "On site"
       },
       {
-        "initials": "DK",
-        "name": "Daniel Kowalski",
-        "detail": "Contractor · Loading dock",
+        "initials": "EM",
+        "name": "Elena Marsh",
+        "detail": "Vertex Logistics",
         "status": "info",
-        "statusLabel": "Checked in"
+        "statusLabel": "Pre-registered"
       },
       {
-        "initials": "LM",
-        "name": "Lena Morales",
-        "detail": "Interview · Lobby B",
+        "initials": "DO",
+        "name": "Daniel Okafor",
+        "detail": "Halcyon Builders",
         "status": "waiting",
-        "statusLabel": "Expected"
+        "statusLabel": "Checked out"
       }
     ],
     "toast": "Host approved"
   },
   "frontDesk": {
     "label": "Front desk console listing the day’s arrivals, hosts and statuses.",
-    "title": "Front desk · Today",
+    "title": "Visitor activity · Today",
     "caption": "4 arrivals",
     "columns": [
       "Visitor",
@@ -80,43 +80,43 @@ export const mockups: Mockups = {
     ],
     "rows": [
       {
-        "initials": "AR",
-        "name": "Amira Rahman",
-        "host": "James Wilson",
-        "time": "09:42",
-        "status": "info",
-        "statusLabel": "Checked in"
-      },
-      {
         "initials": "RS",
         "name": "Robert Smith",
-        "host": "Priya Raman",
-        "time": "10:00",
+        "host": "James Wilson",
+        "time": "09:42",
         "status": "success",
-        "statusLabel": "Approved"
+        "statusLabel": "On site"
       },
       {
-        "initials": "LM",
-        "name": "Lena Morales",
-        "host": "Maria Gomez",
-        "time": "10:30",
-        "status": "waiting",
-        "statusLabel": "Expected"
-      },
-      {
-        "initials": "DK",
-        "name": "Daniel Kowalski",
-        "host": "Facilities",
+        "initials": "EM",
+        "name": "Elena Marsh",
+        "host": "Priya Raman",
         "time": "11:15",
+        "status": "info",
+        "statusLabel": "Pre-registered"
+      },
+      {
+        "initials": "DO",
+        "name": "Daniel Okafor",
+        "host": "Maria Gomez",
+        "time": "08:05",
         "status": "waiting",
-        "statusLabel": "Expected"
+        "statusLabel": "Checked out"
+      },
+      {
+        "initials": "AT",
+        "name": "Aiko Tanaka",
+        "host": "James Wilson",
+        "time": "10:28",
+        "status": "success",
+        "statusLabel": "On site"
       }
     ]
   },
   "kiosk": {
     "label": "Self-service check-in kiosk next to a printed visitor badge.",
-    "greeting": "Welcome",
-    "subtitle": "Check in for your visit",
+    "greeting": "Welcome. Please check in.",
+    "subtitle": "Step 2 of 4 · Confirm your details",
     "actions": [
       "I have an invite",
       "Scan QR code",
@@ -124,8 +124,8 @@ export const mockups: Mockups = {
     ],
     "badge": {
       "label": "Visitor",
-      "name": "Amira Rahman",
-      "company": "Northwind Partners",
+      "name": "Robert Smith",
+      "company": "Northstar Technology",
       "host": "Host: James Wilson",
       "valid": "Valid 09:42 – 18:00"
     }
@@ -136,10 +136,10 @@ export const mockups: Mockups = {
     "name": "Robert Smith",
     "company": "Northstar Technology",
     "details": [
-      "Arrived 09:42 · Meeting 10:00",
-      "Dallas HQ · Main lobby"
+      "Dallas Headquarters · Lobby",
+      "Arrived 09:42 · Meeting 10:00"
     ],
-    "acknowledged": "Site policy acknowledged",
+    "acknowledged": "NDA signed · Photo captured",
     "approve": "Approve",
     "decline": "Decline"
   },

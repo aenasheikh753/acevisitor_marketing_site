@@ -1,39 +1,28 @@
 import { notFound } from "next/navigation";
-import SectionRenderer from "@/components/sections/SectionRenderer";
-import PageHero from "@/components/ui/PageHero";
+import PageView from "@/components/sections/PageView";
 import { getGenericPageSlugs, getPage } from "@/lib/content/site";
 import { buildMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
+export async function generateStaticParams() {
+  return (await getGenericPageSlugs()).map((slug) => ({ slug }));
+}
 
-export function generateStaticParams() {
-  return getGenericPageSlugs().map((slug) => ({ slug }));
+async function findPage(slug: string) {
+  // The home and blog pages have their own routes.
+  return (await getGenericPageSlugs()).includes(slug) ? getPage(slug) : undefined;
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const page = getPage(slug);
+  const page = await findPage(slug);
   return page ? buildMetadata(page.seo) : {};
 }
 
 export default async function ContentPage({ params }: Props) {
   const { slug } = await params;
-  const page = getPage(slug);
+  const page = await findPage(slug);
   if (!page) notFound();
-  return (
-    <>
-      <PageHero
-        eyebrow={page.eyebrow}
-        title={page.title}
-        subtitle={page.subtitle}
-        visual={page.heroVisual}
-        primaryAction={page.primaryAction}
-        secondaryAction={page.secondaryAction}
-        proofLine={page.proofLine}
-      />
-      <SectionRenderer sections={page.sections} />
-    </>
-  );
+  return <PageView page={page} />;
 }

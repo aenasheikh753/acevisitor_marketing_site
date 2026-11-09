@@ -7,35 +7,31 @@ import { buildMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return getCategories().map((category) => ({ slug: category.slug }));
+export async function generateStaticParams() {
+  return (await getCategories()).map((category) => ({ slug: category.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const category = getCategory(slug);
-  const site = getSiteSettings();
+  const [category, site] = await Promise.all([getCategory(slug), getSiteSettings()]);
   return category
     ? buildMetadata({
-        title: `${category.name} | ${site.brandName} Insights`,
+        title: `${category.name} | ${site.brandName}`,
         description: category.description,
         image: site.defaultSocialImage,
-        canonical: `/blog/category/${category.slug}/`,
+        canonical: `/blog/category/${category.slug}`,
       })
     : {};
 }
 
 export default async function BlogCategoryPage({ params }: Props) {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const [category, { ui }, posts] = await Promise.all([getCategory(slug), getSiteSettings(), getPosts()]);
   if (!category) notFound();
-  const { blog } = getSiteSettings().ui;
   return (
     <>
-      <PageHero eyebrow={blog.categoryEyebrow} title={category.name} subtitle={category.description} />
-      <BlogListing posts={getPosts().filter((post) => post.category === slug)} activeCategory={slug} />
+      <PageHero eyebrow={ui.blog.categoryEyebrow} title={category.name} subtitle={category.description} />
+      <BlogListing posts={posts.filter((post) => post.category === slug)} activeCategory={slug} />
     </>
   );
 }

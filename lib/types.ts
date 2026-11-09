@@ -1,13 +1,20 @@
-import type { IconName } from "@/components/ui/Icon";
-
-export type { IconName };
+/**
+ * The website's content model. Every type here is what the admin API must
+ * return, so anything the site displays can be edited, added or removed there.
+ */
 
 export type LinkItem = { label: string; href: string };
+
+/**
+ * An icon name from components/ui/Icon, or the URL of an uploaded icon image.
+ * An empty string shows no icon.
+ */
+export type IconValue = string;
 
 export type Seo = {
   title: string;
   description: string;
-  /** Social preview image path, e.g. /images/og-default.jpg */
+  /** Social preview image. Empty uses the site default. */
   image: string;
   /** Path or absolute URL. */
   canonical: string;
@@ -29,6 +36,7 @@ export type SiteSettings = {
   footer: {
     summary: string;
     companyLine: string;
+    companyLink?: LinkItem;
     groups: { title: string; links: LinkItem[] }[];
     legalLinks: LinkItem[];
     copyright: string;
@@ -50,7 +58,6 @@ export type UiCopy = {
   blog: {
     categoriesLabel: string;
     allCategories: string;
-    readMore: string;
     backToAll: string;
     writtenBy: string;
     categoryEyebrow: string;
@@ -78,15 +85,9 @@ export type UiCopy = {
   };
 };
 
-/* ---------- Mockups (fictional sample data for JSX product visuals) ---------- */
+/* ---------- Mockups (text inside the built-in product visuals) ---------- */
 
-export type VisualName =
-  | "none"
-  | "dashboard"
-  | "frontDesk"
-  | "kiosk"
-  | "approvals"
-  | "multiSite";
+export type VisualName = "none" | "dashboard" | "frontDesk" | "kiosk" | "approvals" | "multiSite";
 
 export type MockStatus = "success" | "info" | "waiting";
 
@@ -145,7 +146,7 @@ export type Feature = {
   kind: "feature" | "solution";
   name: string;
   eyebrow?: string;
-  icon: IconName;
+  icon: IconValue;
   description: string;
   benefits: string[];
   image?: string;
@@ -157,7 +158,7 @@ export type Feature = {
 export type Industry = {
   slug: string;
   name: string;
-  icon: IconName;
+  icon: IconValue;
   scenario: string;
   benefits: string[];
   image?: string;
@@ -165,15 +166,19 @@ export type Industry = {
   sortOrder: number;
 };
 
-export type GalleryItem = {
+export type MediaItem = {
   slug: string;
   image: string;
   alt: string;
   caption: string;
   description?: string;
   category: string;
+  /** Where the image is used, e.g. "gallery". */
+  usage: string;
   sortOrder: number;
 };
+
+export type GalleryItem = MediaItem;
 
 export type Author = { slug: string; name: string; role: string; bio: string };
 export type Category = { slug: string; name: string; description: string };
@@ -182,27 +187,27 @@ export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  status: "draft" | "published";
   summary: string;
   coverImage: string;
   coverAlt: string;
   category: string;
   author: string;
   seo: Seo;
-  body: string;
-};
-
-export type LegalPage = {
-  slug: string;
-  title: string;
-  subtitle: string;
-  revised: string;
-  seo: Seo;
+  /** Markdown. */
   body: string;
 };
 
 /* ---------- Pages and modular sections ---------- */
 
-export type CardItem = { icon: IconName; title: string; description: string };
+export type CardItem = {
+  icon: IconValue;
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  benefits?: string[];
+};
 
 type Heading = { eyebrow?: string; title: string; description?: string };
 
@@ -215,15 +220,17 @@ export type CardsSection = Heading & {
   type: "cards";
   columns?: 2 | 3 | 4;
   items: CardItem[];
+  action?: LinkItem;
 };
 
-export type FeaturesSection = Heading & { type: "features"; showBenefits?: boolean };
+export type FeaturesSection = Heading & { type: "features"; showBenefits?: boolean; limit?: number };
 export type SolutionsSection = Heading & { type: "solutions" };
 export type IndustriesSection = Heading & { type: "industries"; limit?: number; action?: LinkItem };
 
 export type SplitSection = Heading & {
   type: "split";
   body?: string[];
+  checklistTitle?: string;
   checklist?: string[];
   cards?: CardItem[];
   stats?: { value: string; label: string }[];
@@ -234,36 +241,37 @@ export type SplitSection = Heading & {
   action?: LinkItem;
 };
 
-export type WorkflowSection = Heading & {
-  type: "workflow";
-  steps: { icon: IconName; title: string; description: string }[];
-};
-
+export type WorkflowSection = Heading & { type: "workflow"; steps: CardItem[] };
 export type GallerySection = Heading & { type: "gallery" };
 export type GalleryPreviewSection = Heading & { type: "galleryPreview"; limit: number; action: LinkItem };
 export type LatestPostsSection = Heading & { type: "latestPosts"; limit: number; action: LinkItem };
-
-export type FaqSection = Heading & {
-  type: "faqs";
-  items: { question: string; answer: string }[];
-};
-
+export type FaqSection = Heading & { type: "faqs"; items: { question: string; answer: string }[] };
 export type SiteIndexSection = Heading & { type: "siteIndex"; postsTitle: string; legalTitle: string };
+/** Long-form Markdown, used for legal pages. */
+export type RichTextSection = Heading & { type: "richText"; body: string };
+
+export type FormField = {
+  name: string;
+  label: string;
+  type: "text" | "email" | "tel" | "select" | "textarea";
+  width?: "half" | "full";
+  required?: boolean;
+  placeholder?: string;
+  options?: string[];
+  autoComplete?: string;
+  error?: string;
+  invalid?: string;
+};
 
 export type FormCopy = {
   requiredHint: string;
-  fields: {
-    name: { label: string; placeholder: string; error: string };
-    email: { label: string; placeholder: string; error: string; invalid: string };
-    company: { label: string; placeholder: string; error: string };
-    interest: { label: string; options: string[] };
-    message: { label: string; placeholder: string; error: string };
-    honeypot: { label: string };
-  };
+  fields: FormField[];
+  honeypotLabel: string;
   submit: string;
   submitting: string;
   note: string;
   privacyNote: string;
+  privacyHref: string;
   errorSummary: string;
   success: { title: string; description: string };
   failure: { title: string; description: string };
@@ -271,18 +279,18 @@ export type FormCopy = {
 
 export type FormSection = Heading & {
   type: "form";
+  /** Sent with each submission so the backend can tell forms apart. */
+  formName: string;
   asideEyebrow?: string;
   asideTitle: string;
   asideDescription?: string;
   asideItems?: CardItem[];
+  asideChecklist?: string[];
+  asideAction?: LinkItem;
   form: FormCopy;
 };
 
-export type CtaSection = Heading & {
-  type: "cta";
-  primary: LinkItem;
-  secondary?: LinkItem;
-};
+export type CtaSection = Heading & { type: "cta"; primary: LinkItem; secondary?: LinkItem };
 
 export type Section =
   | ProofPointsSection
@@ -297,6 +305,7 @@ export type Section =
   | LatestPostsSection
   | FaqSection
   | SiteIndexSection
+  | RichTextSection
   | FormSection
   | CtaSection;
 
@@ -306,9 +315,15 @@ export type Page = {
   title: string;
   subtitle: string;
   heroVisual: VisualName;
+  /** An uploaded image that replaces the built-in hero visual. */
+  heroImage?: string;
+  heroImageAlt?: string;
   primaryAction?: LinkItem;
   secondaryAction?: LinkItem;
   proofLine?: string;
+  heroProofs?: { label: string; detail: string }[];
+  /** Shown as a "last revised" date, for legal pages. */
+  revised?: string;
   sections: Section[];
   seo: Seo;
 };

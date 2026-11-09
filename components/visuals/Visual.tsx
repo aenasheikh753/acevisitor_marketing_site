@@ -209,10 +209,10 @@ function MultiSite({ data }: { data: Mockups["multiSite"] }) {
   );
 }
 
-export default function Visual({ name }: { name: VisualName }) {
+export default async function Visual({ name }: { name: VisualName }) {
   if (name === "none") return null;
-  const mockups = getMockups();
-  const { mockupNote } = getSiteSettings().ui;
+  const [mockups, { ui }] = await Promise.all([getMockups(), getSiteSettings()]);
+  const { mockupNote } = ui;
   const views = {
     dashboard: <Dashboard data={mockups.dashboard} />,
     frontDesk: <FrontDesk data={mockups.frontDesk} />,

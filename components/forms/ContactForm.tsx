@@ -3,53 +3,52 @@
 import Link from "next/link";
 import { type FormEvent, useRef, useState } from "react";
 import Button from "@/components/ui/Button";
-import type { FormCopy } from "@/lib/types";
+import type { FormCopy, FormField } from "@/lib/types";
 
-type FieldName = "name" | "email" | "company" | "message";
-type Errors = Partial<Record<FieldName, string>>;
+type Errors = Record<string, string | undefined>;
 type Status = "idle" | "submitting" | "success" | "failure";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const FIELD_ORDER: FieldName[] = ["name", "email", "company", "message"];
+const HONEYPOT = "website";
 
-function validate(data: FormData, copy: FormCopy): Errors {
-  const value = (key: FieldName) => String(data.get(key) ?? "").trim();
+function validate(data: FormData, fields: FormField[]): Errors {
   const errors: Errors = {};
-  if (!value("name")) errors.name = copy.fields.name.error;
-  if (!value("email")) errors.email = copy.fields.email.error;
-  else if (!EMAIL_PATTERN.test(value("email"))) errors.email = copy.fields.email.invalid;
-  if (!value("company")) errors.company = copy.fields.company.error;
-  if (!value("message")) errors.message = copy.fields.message.error;
+  for (const field of fields) {
+    const value = String(data.get(field.name) ?? "").trim();
+    if (field.required && !value) errors[field.name] = field.error;
+    else if (field.type === "email" && value && !EMAIL_PATTERN.test(value)) errors[field.name] = field.invalid ?? field.error;
+  }
   return errors;
 }
 
-function Field({
-  id,
-  label,
-  error,
-  children,
-}: {
-  id: FieldName;
-  label: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <label className="field-label" htmlFor={id}>
-        {label} <span aria-hidden="true">*</span>
-      </label>
-      {children}
-      {error ? (
-        <p className="field-error" id={`${id}-error`}>
-          {error}
-        </p>
-      ) : null}
-    </div>
-  );
+function Control({ field, error }: { field: FormField; error?: string }) {
+  const shared = {
+    id: field.name,
+    name: field.name,
+    required: field.required,
+    "aria-required": field.required,
+    "aria-invalid": error ? (true as const) : undefined,
+    "aria-describedby": error ? `${field.name}-error` : undefined,
+    autoComplete: field.autoComplete,
+    className: "field-input",
+  };
+  if (field.type === "textarea") return <textarea {...shared} rows={5} placeholder={field.placeholder} />;
+  if (field.type === "select") {
+    return (
+      <select {...shared} defaultValue="">
+        <option value="" disabled={field.required}>
+          {field.placeholder}
+        </option>
+        {field.options?.map((option) => (
+          <option key={option}>{option}</option>
+        ))}
+      </select>
+    );
+  }
+  return <input {...shared} type={field.type} placeholder={field.placeholder} />;
 }
 
-export default function ContactForm({ copy, privacyHref }: { copy: FormCopy; privacyHref: string }) {
+export default function ContactForm({ formName, copy }: { formName: string; copy: FormCopy }) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const statusRef = useRef<HTMLDivElement>(null);
@@ -65,18 +64,18 @@ export default function ContactForm({ copy, privacyHref }: { copy: FormCopy; pri
     const data = new FormData(form);
 
     // Bots fill the hidden field: report success and send nothing.
-    if (String(data.get("website") ?? "")) {
+    if (String(data.get(HONEYPOT) ?? "")) {
       form.reset();
       announce("success");
       return;
     }
 
-    const found = validate(data, copy);
+    const found = validate(data, copy.fields);
     setErrors(found);
-    const firstInvalid = FIELD_ORDER.find((field) => found[field]);
+    const firstInvalid = copy.fields.find((field) => found[field.name]);
     if (firstInvalid) {
       setStatus("idle");
-      document.getElementById(firstInvalid)?.focus();
+      document.getElementById(firstInvalid.name)?.focus();
       return;
     }
 
@@ -87,12 +86,12 @@ export default function ContactForm({ copy, privacyHref }: { copy: FormCopy; pri
     }
 
     setStatus("submitting");
-    data.delete("website");
+    data.delete(HONEYPOT);
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(data)),
+        body: JSON.stringify({ form: formName, ...Object.fromEntries(data) }),
       });
       if (!response.ok) throw new Error(`Form endpoint returned ${response.status}`);
       form.reset();
@@ -102,25 +101,13 @@ export default function ContactForm({ copy, privacyHref }: { copy: FormCopy; pri
     }
   };
 
-  const inputProps = (name: FieldName) => ({
-    id: name,
-    name,
-    required: true,
-    "aria-required": true as const,
-    "aria-invalid": errors[name] ? (true as const) : undefined,
-    "aria-describedby": errors[name] ? `${name}-error` : undefined,
-    className: "field-input",
-  });
-
-  const fields = copy.fields;
-
   return (
     <form
       noValidate
       className="card p-6 sm:p-8"
       onSubmit={onSubmit}
       onInput={(event) => {
-        const name = (event.target as HTMLInputElement).name as FieldName;
+        const name = (event.target as HTMLInputElement).name;
         if (errors[name]) setErrors((current) => ({ ...current, [name]: undefined }));
       }}
     >
@@ -148,49 +135,33 @@ export default function ContactForm({ copy, privacyHref }: { copy: FormCopy; pri
       <p className="mb-5 text-sm text-muted">{copy.requiredHint}</p>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="name" label={fields.name.label} error={errors.name}>
-          <input {...inputProps("name")} type="text" autoComplete="name" placeholder={fields.name.placeholder} />
-        </Field>
-        <Field id="email" label={fields.email.label} error={errors.email}>
-          <input {...inputProps("email")} type="email" autoComplete="email" placeholder={fields.email.placeholder} />
-        </Field>
-        <Field id="company" label={fields.company.label} error={errors.company}>
-          <input
-            {...inputProps("company")}
-            type="text"
-            autoComplete="organization"
-            placeholder={fields.company.placeholder}
-          />
-        </Field>
-        <div>
-          <label className="field-label" htmlFor="interest">
-            {fields.interest.label}
-          </label>
-          <select id="interest" name="interest" className="field-input">
-            {fields.interest.options.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
-        </div>
-        <div className="sm:col-span-2">
-          <Field id="message" label={fields.message.label} error={errors.message}>
-            <textarea {...inputProps("message")} rows={5} placeholder={fields.message.placeholder} />
-          </Field>
-        </div>
+        {copy.fields.map((field) => (
+          <div key={field.name} className={field.width === "half" ? "" : "sm:col-span-2"}>
+            <label className="field-label" htmlFor={field.name}>
+              {field.label} {field.required ? <span aria-hidden="true">*</span> : null}
+            </label>
+            <Control field={field} error={errors[field.name]} />
+            {errors[field.name] ? (
+              <p className="field-error" id={`${field.name}-error`}>
+                {errors[field.name]}
+              </p>
+            ) : null}
+          </div>
+        ))}
       </div>
 
       <div className="honeypot" aria-hidden="true">
-        <label htmlFor="website">{fields.honeypot.label}</label>
-        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor={HONEYPOT}>{copy.honeypotLabel}</label>
+        <input id={HONEYPOT} name={HONEYPOT} type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <p className="mt-5 text-sm text-muted">{copy.note}</p>
+      {copy.note ? <p className="mt-5 text-sm text-muted">{copy.note}</p> : null}
 
       <div className="mt-4 flex flex-wrap items-center gap-4">
         <Button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? copy.submitting : copy.submit}
         </Button>
-        <Link href={privacyHref} className="text-link text-sm">
+        <Link href={copy.privacyHref} className="text-link text-sm">
           {copy.privacyNote}
         </Link>
       </div>

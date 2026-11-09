@@ -11,8 +11,8 @@ import "./globals.css";
 const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"], display: "swap" });
 const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
 
-export function generateMetadata(): Metadata {
-  const site = getSiteSettings();
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteSettings();
   return {
     metadataBase: new URL(site.siteUrl),
     title: site.brandName,
@@ -20,8 +20,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  const site = getSiteSettings();
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const site = await getSiteSettings();
   return (
     <html lang="en" className={`${dmSans.variable} ${manrope.variable}`}>
       <body className="flex min-h-screen flex-col">
@@ -40,8 +40,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
         <Footer site={site} />
-        <JsonLd data={organizationJsonLd()} />
-        <JsonLd data={websiteJsonLd()} />
+        <JsonLd data={organizationJsonLd(site)} />
+        <JsonLd data={websiteJsonLd(site)} />
       </body>
     </html>
   );

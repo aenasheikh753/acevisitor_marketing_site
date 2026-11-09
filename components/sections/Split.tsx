@@ -1,41 +1,17 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
-import { SectionHeading } from "@/components/ui/Section";
 import { CheckList } from "@/components/sections/Cards";
+import Button from "@/components/ui/Button";
+import Icon, { IconTile } from "@/components/ui/Icon";
+import { SectionHeading } from "@/components/ui/Section";
 import Visual from "@/components/visuals/Visual";
 import type { CardItem, LinkItem, VisualName } from "@/lib/types";
-
-export function SplitMedia({
-  visual,
-  image,
-  imageAlt,
-}: {
-  visual?: VisualName;
-  image?: string;
-  imageAlt?: string;
-}) {
-  if (image) {
-    return (
-      <Image
-        src={image}
-        alt={imageAlt ?? ""}
-        width={1200}
-        height={750}
-        sizes="(min-width: 1024px) 50vw, 100vw"
-        className="aspect-[8/5] w-full rounded-panel object-cover shadow-card"
-      />
-    );
-  }
-  return visual ? <Visual name={visual} /> : null;
-}
 
 type SplitRowProps = {
   eyebrow?: string;
   title: string;
   description?: string;
   body?: string[];
+  checklistTitle?: string;
   checklist?: string[];
   cards?: CardItem[];
   stats?: { value: string; label: string }[];
@@ -44,11 +20,10 @@ type SplitRowProps = {
   imageAlt?: string;
   reverse?: boolean;
   action?: LinkItem;
-  children?: ReactNode;
 };
 
 export function SplitRow(props: SplitRowProps) {
-  const { eyebrow, title, description, body, checklist, cards, stats, visual, image, imageAlt, reverse, action } = props;
+  const { eyebrow, title, description, body, checklistTitle, checklist, cards, stats, visual, image, imageAlt, reverse, action } = props;
   const hasMedia = Boolean(image) || (visual && visual !== "none");
 
   return (
@@ -60,14 +35,13 @@ export function SplitRow(props: SplitRowProps) {
             {paragraph}
           </p>
         ))}
-        {checklist?.length ? <CheckList items={checklist} className="mt-6" /> : null}
+        {checklistTitle ? <h3 className="heading-card mt-6 text-navy">{checklistTitle}</h3> : null}
+        {checklist?.length ? <CheckList items={checklist} className={checklistTitle ? "mt-3" : "mt-6"} /> : null}
         {cards?.length ? (
           <ul className="mt-7 space-y-5">
             {cards.map((card) => (
               <li key={card.title} className="flex items-start gap-4">
-                <span className="icon-tile">
-                  <Icon name={card.icon} />
-                </span>
+                <IconTile name={card.icon} />
                 <div>
                   <h3 className="heading-card text-navy">{card.title}</h3>
                   <p className="mt-1 text-[0.95rem] leading-7 text-muted">{card.description}</p>
@@ -96,7 +70,18 @@ export function SplitRow(props: SplitRowProps) {
       </div>
       {hasMedia ? (
         <div className={`reveal min-w-0 ${reverse ? "lg:order-1" : ""}`}>
-          <SplitMedia visual={visual} image={image} imageAlt={imageAlt} />
+          {image ? (
+            <Image
+              src={image}
+              alt={imageAlt ?? ""}
+              width={1200}
+              height={750}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="aspect-[8/5] w-full rounded-panel object-cover shadow-card"
+            />
+          ) : visual ? (
+            <Visual name={visual} />
+          ) : null}
         </div>
       ) : null}
     </div>
