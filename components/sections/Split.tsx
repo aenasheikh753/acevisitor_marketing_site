@@ -65,7 +65,7 @@ export function SplitRow(props: SplitRowProps) {
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-display text-2xl font-extrabold text-teal">{stat.value}</dd>
+                <dd className="font-display text-2xl font-extrabold text-blue">{stat.value}</dd>
                 <dd className="mt-1 text-sm leading-5 text-muted">{stat.label}</dd>
               </div>
             ))}

@@ -11,6 +11,10 @@
   "defaultSocialImage": "/images/og-default.jpg",
   "menu": [
     {
+      "label": "Home",
+      "href": "/"
+    },
+    {
       "label": "Platform",
       "href": "/platform"
     },

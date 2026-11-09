@@ -57,7 +57,7 @@ export default function PageHero({
           ) : null}
           {proofLine ? (
             <p className="mt-7 flex items-center gap-2 text-sm font-semibold text-white">
-              <span aria-hidden="true" className="h-2 w-2 rounded-pill bg-teal-bright" />
+              <span aria-hidden="true" className="h-2 w-2 rounded-pill bg-blue-bright" />
               {proofLine}
             </p>
           ) : null}

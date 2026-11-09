@@ -12,7 +12,7 @@ export function CheckList({ items, className = "" }: { items: string[]; classNam
     <ul className={`space-y-2 ${className}`}>
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2 text-sm text-ink">
-          <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+          <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-blue" />
           {item}
         </li>
       ))}

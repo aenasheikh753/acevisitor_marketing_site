@@ -5,7 +5,7 @@ date: 2026-08-26
 status: published
 summary: "Enterprise visitor programs work best when shared standards leave room for site realities."
 coverImage: /images/blog/multi-site-operations.webp
-coverAlt: "Abstract teal cover graphic with a grid of outlined tiles"
+coverAlt: "Abstract blue cover graphic with a grid of outlined tiles"
 category: multi-site-programs
 author: acevisitor-editorial
 seo:

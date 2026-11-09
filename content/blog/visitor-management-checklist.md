@@ -5,7 +5,7 @@ date: 2026-10-12
 status: published
 summary: "A thoughtful visitor program starts well before a guest reaches the reception desk."
 coverImage: /images/blog/visitor-experience-checklist.webp
-coverAlt: "Abstract navy and teal cover graphic with concentric circles"
+coverAlt: "Abstract navy and blue cover graphic with concentric circles"
 category: visitor-experience
 author: acevisitor-editorial
 seo:

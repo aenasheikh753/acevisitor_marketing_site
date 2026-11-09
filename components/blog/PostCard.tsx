@@ -31,7 +31,7 @@ export default function PostCard({ post, headingLevel: Heading = "h3" }: { post:
       <div className="flex flex-1 flex-col p-6">
         <p className="eyebrow">{getCategory(post.category)?.name}</p>
         <Heading className="heading-card mt-3 text-navy">
-          <Link href={`/blog/${post.slug}`} className="transition-colors hover:text-teal">
+          <Link href={`/blog/${post.slug}`} className="transition-colors hover:text-blue">
             {post.title}
           </Link>
         </Heading>

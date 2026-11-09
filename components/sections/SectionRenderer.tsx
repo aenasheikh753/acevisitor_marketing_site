@@ -63,7 +63,7 @@ function Body({ section }: { section: SectionData }) {
           {section.items.map((item) => (
             <div key={item.label} className="card reveal p-6 text-center">
               <dt className="sr-only">{item.label}</dt>
-              <dd className="font-display text-3xl font-extrabold text-teal">{item.value}</dd>
+              <dd className="font-display text-3xl font-extrabold text-blue">{item.value}</dd>
               <dd className="mt-1 text-muted">{item.label}</dd>
             </div>
           ))}
@@ -95,7 +95,7 @@ function Body({ section }: { section: SectionData }) {
                 <Icon name={step.icon} />
               </span>
               <div>
-                <p className="text-xs font-extrabold tracking-wider text-teal">{String(index + 1).padStart(2, "0")}</p>
+                <p className="text-xs font-extrabold tracking-wider text-blue">{String(index + 1).padStart(2, "0")}</p>
                 <h3 className="heading-card text-navy">{step.title}</h3>
                 <p className="mt-1 text-sm leading-6 text-muted">{step.description}</p>
               </div>
@@ -196,7 +196,7 @@ function Body({ section }: { section: SectionData }) {
             <details key={item.question} className="group py-5">
               <summary className="flex list-none items-center justify-between gap-5 rounded-small font-display font-bold text-navy [&::-webkit-details-marker]:hidden">
                 {item.question}
-                <span aria-hidden="true" className="text-xl font-normal text-teal transition-transform group-open:rotate-45">
+                <span aria-hidden="true" className="text-xl font-normal text-blue transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>

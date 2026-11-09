@@ -10,7 +10,7 @@ function Pill({ status, children }: { status: MockStatus; children: string }) {
 
 function Avatar({ initials }: { initials: string }) {
   return (
-    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-teal-soft text-[0.65rem] font-extrabold text-teal">
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-pill bg-blue-pale text-[0.65rem] font-extrabold text-blue">
       {initials}
     </span>
   );
@@ -61,7 +61,7 @@ function Dashboard({ data }: { data: Mockups["dashboard"] }) {
                 {data.bars.map((height, index) => (
                   <span
                     key={index}
-                    className={`flex-1 rounded-t-[3px] ${index === 5 || index === 10 ? "bg-teal" : "bg-blue-soft"}`}
+                    className={`flex-1 rounded-t-[3px] ${index === 5 || index === 10 ? "bg-blue" : "bg-blue-soft"}`}
                     style={{ height: `${height}%` }}
                   />
                 ))}
@@ -135,7 +135,7 @@ function Kiosk({ data }: { data: Mockups["kiosk"] }) {
               <div
                 key={action}
                 className={`rounded-small px-2 py-2.5 text-xs font-bold ${
-                  index === 0 ? "bg-teal text-white" : "bg-sky text-navy"
+                  index === 0 ? "bg-blue text-white" : "bg-sky text-navy"
                 }`}
               >
                 {action}
@@ -173,7 +173,7 @@ function Approvals({ data }: { data: Mockups["approvals"] }) {
         {data.acknowledged}
       </p>
       <div className="mt-4 grid grid-cols-2 gap-2 text-center text-sm font-bold">
-        <span className="rounded-small bg-teal px-3 py-2.5 text-white">{data.approve}</span>
+        <span className="rounded-small bg-blue px-3 py-2.5 text-white">{data.approve}</span>
         <span className="rounded-small border border-line px-3 py-2.5 text-navy">{data.decline}</span>
       </div>
     </div>
@@ -200,7 +200,7 @@ function MultiSite({ data }: { data: Mockups["multiSite"] }) {
               </span>
             </div>
             <div className="mt-1.5 h-2 overflow-hidden rounded-pill bg-blue-soft">
-              <div className="h-full rounded-pill bg-teal" style={{ width: `${site.load}%` }} />
+              <div className="h-full rounded-pill bg-blue" style={{ width: `${site.load}%` }} />
             </div>
           </li>
         ))}
