@@ -8,12 +8,11 @@ import { SplitRow } from "@/components/sections/Split";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import SectionShell, { type Tone } from "@/components/ui/Section";
-import { getPublishedPosts } from "@/lib/content/blog";
+import { getPosts } from "@/lib/content/blog";
 import {
   getFeatures,
   getGalleryItems,
   getIndustries,
-  getVerifiedSecurityControls,
 } from "@/lib/content/collections";
 import { getSiteSettings } from "@/lib/content/site";
 import type { LinkItem, Section as SectionData } from "@/lib/types";
@@ -167,27 +166,10 @@ function Body({ section }: { section: SectionData }) {
     case "latestPosts":
       return (
         <>
-          <PostGrid posts={getPublishedPosts().slice(0, section.limit)} />
+          <PostGrid posts={getPosts().slice(0, section.limit)} />
           <SectionAction action={section.action} />
         </>
       );
-
-    case "security": {
-      const controls = getVerifiedSecurityControls();
-      if (controls.length) {
-        return (
-          <CardGrid items={controls.map((control) => ({ icon: control.icon, title: control.name, description: control.description }))} />
-        );
-      }
-      return (
-        <>
-          <h3 className="heading-card text-navy">{section.emptyTitle}</h3>
-          <p className="mt-2 mb-8 max-w-2xl text-muted">{section.emptyDescription}</p>
-          <CardGrid items={section.emptyItems} />
-          <SectionAction action={section.emptyAction} />
-        </>
-      );
-    }
 
     case "faqs":
       return (
@@ -213,7 +195,7 @@ function Body({ section }: { section: SectionData }) {
         { title: section.legalTitle, links: footer.legalLinks },
         {
           title: section.postsTitle,
-          links: getPublishedPosts().map((post) => ({ label: post.title, href: `/blog/${post.slug}` })),
+          links: getPosts().map((post) => ({ label: post.title, href: `/blog/${post.slug}` })),
         },
       ];
       return (
@@ -249,9 +231,11 @@ function Body({ section }: { section: SectionData }) {
             <ContactForm copy={section.form} privacyHref={footer.legalLinks[0].href} />
           </div>
           <aside>
+            {section.asideEyebrow ? <p className="eyebrow mb-2">{section.asideEyebrow}</p> : null}
             <h3 className="heading-card text-navy">{section.asideTitle}</h3>
+            {section.asideDescription ? <p className="mt-2 leading-7 text-muted">{section.asideDescription}</p> : null}
             <ul className="mt-5 space-y-5">
-              {section.asideItems.map((item) => (
+              {section.asideItems?.map((item) => (
                 <li key={item.title} className="flex items-start gap-4">
                   <span className="icon-tile">
                     <Icon name={item.icon} />

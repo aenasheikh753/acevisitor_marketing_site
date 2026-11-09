@@ -5,7 +5,7 @@ import Icon from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/Section";
 import { CheckList } from "@/components/sections/Cards";
 import Visual from "@/components/visuals/Visual";
-import type { LinkItem, VisualName } from "@/lib/types";
+import type { CardItem, LinkItem, VisualName } from "@/lib/types";
 
 export function SplitMedia({
   visual,
@@ -37,6 +37,7 @@ type SplitRowProps = {
   description?: string;
   body?: string[];
   checklist?: string[];
+  cards?: CardItem[];
   stats?: { value: string; label: string }[];
   visual?: VisualName;
   image?: string;
@@ -47,7 +48,7 @@ type SplitRowProps = {
 };
 
 export function SplitRow(props: SplitRowProps) {
-  const { eyebrow, title, description, body, checklist, stats, visual, image, imageAlt, reverse, action } = props;
+  const { eyebrow, title, description, body, checklist, cards, stats, visual, image, imageAlt, reverse, action } = props;
   const hasMedia = Boolean(image) || (visual && visual !== "none");
 
   return (
@@ -60,6 +61,21 @@ export function SplitRow(props: SplitRowProps) {
           </p>
         ))}
         {checklist?.length ? <CheckList items={checklist} className="mt-6" /> : null}
+        {cards?.length ? (
+          <ul className="mt-7 space-y-5">
+            {cards.map((card) => (
+              <li key={card.title} className="flex items-start gap-4">
+                <span className="icon-tile">
+                  <Icon name={card.icon} />
+                </span>
+                <div>
+                  <h3 className="heading-card text-navy">{card.title}</h3>
+                  <p className="mt-1 text-[0.95rem] leading-7 text-muted">{card.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : null}
         {stats?.length ? (
           <dl className="mt-7 grid grid-cols-3 gap-4 border-t border-line pt-6">
             {stats.map((stat) => (

@@ -1,5 +1,17 @@
 # AceVisitor website
 
-Public marketing site for AceVisitor, built with Next.js, TypeScript and Tailwind CSS and exported as static HTML.
+Public marketing frontend for AceVisitor, built with Next.js, TypeScript and Tailwind CSS.
 
-Start with [docs/README.md](docs/README.md).
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+- Pages and routes are in `app/`.
+- All website text is in `lib/content/`.
+- Theme colors, fonts, radii and shadows are in `app/globals.css`.
+
+Copy `.env.example` to `.env.local` to set the Login URL and the contact form endpoint.

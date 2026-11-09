@@ -62,7 +62,8 @@ export default function GalleryBrowser({ items, ui }: { items: GalleryItem[]; ui
               />
               <span className="block p-5">
                 <span className="block font-bold text-navy">{item.caption}</span>
-                <span className="mt-1 block text-sm text-muted">{item.category}</span>
+                {item.description ? <span className="mt-1 block text-sm leading-6 text-muted">{item.description}</span> : null}
+                <span className="eyebrow mt-3 block">{item.category}</span>
               </span>
             </button>
           </li>
@@ -97,7 +98,7 @@ export default function GalleryBrowser({ items, ui }: { items: GalleryItem[]; ui
             <div className="flex flex-wrap items-center justify-between gap-3 p-4">
               <div>
                 <p className="font-bold text-navy">{selected.caption}</p>
-                <p className="text-sm text-muted">{selected.category}</p>
+                <p className="text-sm text-muted">{selected.description ?? selected.category}</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="secondary" aria-label={ui.previous} onClick={() => step(-1)}>

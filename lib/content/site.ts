@@ -1,27 +1,27 @@
 import type { Mockups, Page, SiteSettings } from "@/lib/types";
-import { readJson, readJsonCollection } from "./read";
+import { mockups } from "./mockups";
+import { pages } from "./pages";
+import { siteSettings } from "./settings";
 
 export function getSiteSettings(): SiteSettings {
-  return readJson<SiteSettings>("site.json");
+  return siteSettings;
 }
 
 export function getMockups(): Mockups {
-  return readJson<Mockups>("mockups.json");
+  return mockups;
 }
 
 export function getAllPages(): Page[] {
-  return readJsonCollection<Page>("pages");
+  return pages;
 }
 
 export function getPage(slug: string): Page | undefined {
-  return getAllPages().find((page) => page.slug === slug);
+  return pages.find((page) => page.slug === slug);
 }
 
 /** Slugs with their own route, so app/[slug] must not generate them. */
 const DEDICATED_ROUTES = new Set(["home", "blog"]);
 
 export function getGenericPageSlugs(): string[] {
-  return getAllPages()
-    .map((page) => page.slug)
-    .filter((slug) => !DEDICATED_ROUTES.has(slug));
+  return pages.map((page) => page.slug).filter((slug) => !DEDICATED_ROUTES.has(slug));
 }

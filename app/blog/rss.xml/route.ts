@@ -1,4 +1,4 @@
-import { getPublishedPosts } from "@/lib/content/blog";
+import { getPosts } from "@/lib/content/blog";
 import { getPage, getSiteSettings } from "@/lib/content/site";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -10,7 +10,7 @@ const escapeXml = (value: string) =>
 export function GET() {
   const site = getSiteSettings();
   const blog = getPage("blog");
-  const items = getPublishedPosts()
+  const items = getPosts()
     .map((post) => {
       const url = absoluteUrl(post.seo.canonical);
       return `    <item>

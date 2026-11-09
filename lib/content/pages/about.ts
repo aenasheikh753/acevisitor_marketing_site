@@ -1,0 +1,73 @@
+import type { Page } from "@/lib/types";
+
+const page: Page = {
+  "slug": "about",
+  "eyebrow": "About AceVisitor",
+  "title": "A more human way to manage the front door.",
+  "subtitle": "We believe welcoming people and running secure sites should work together — with less friction for guests and more clarity for teams.",
+  "heroVisual": "none",
+  "sections": [
+    {
+      "type": "split",
+      "eyebrow": "Our point of view",
+      "title": "Every visit is a moment that matters.",
+      "body": [
+        "The first few minutes at a workplace shape how people feel about the organization they came to see. Yet visitor processes are often spread across paper logs, email threads, and disconnected tools.",
+        "AceVisitor brings those moments into one thoughtful experience: clear for guests, useful for on-site teams, and visible to the people responsible for the wider program.",
+        "Our focus is simple — make it easier for organizations to welcome people well while keeping daily operations accountable and consistent."
+      ],
+      "visual": "kiosk"
+    },
+    {
+      "type": "cards",
+      "title": "",
+      "columns": 3,
+      "items": [
+        {
+          "icon": "users",
+          "title": "People first",
+          "description": "Make the visitor experience welcoming and the staff experience practical."
+        },
+        {
+          "icon": "layers",
+          "title": "Clarity at scale",
+          "description": "Connect local operations with an understandable organization-wide view."
+        },
+        {
+          "icon": "shield",
+          "title": "Trust through design",
+          "description": "Build responsible processes into the way teams manage each visit."
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "eyebrow": "A product by Datacompute Consulting LLC",
+      "title": "Built with a focus on practical operations.",
+      "body": [
+        "AceVisitor is a visitor-management product from Datacompute Consulting LLC. The team’s focus is to help organizations welcome people well while making daily visitor operations easier to understand and coordinate."
+      ]
+    },
+    {
+      "type": "cta",
+      "title": "Let's make your front door work better.",
+      "description": "Tell us what a great visitor experience looks like for your organization.",
+      "primary": {
+        "label": "Get in touch",
+        "href": "/contact"
+      },
+      "secondary": {
+        "label": "Explore the platform",
+        "href": "/platform"
+      }
+    }
+  ],
+  "seo": {
+    "title": "About | AceVisitor",
+    "description": "The AceVisitor story and its relationship to Datacompute Consulting LLC.",
+    "image": "/images/og-default.jpg",
+    "canonical": "/about"
+  }
+};
+
+export default page;

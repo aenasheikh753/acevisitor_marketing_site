@@ -3,12 +3,10 @@ import type { BlogPost, Seo } from "@/lib/types";
 import { getAuthor, getCategory } from "@/lib/content/blog";
 import { getSiteSettings } from "@/lib/content/site";
 
-/** Every route ends in a slash (trailingSlash: true), so URLs must match. */
 export function absoluteUrl(pathOrUrl: string): string {
   const { siteUrl } = getSiteSettings();
   const url = new URL(pathOrUrl, siteUrl);
-  const isFile = /\.[a-z0-9]+$/i.test(url.pathname);
-  if (!isFile && !url.pathname.endsWith("/")) url.pathname += "/";
+  url.pathname = url.pathname.replace(/\/$/, "");
   return url.toString();
 }
 

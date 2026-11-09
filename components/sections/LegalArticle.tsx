@@ -14,9 +14,6 @@ export default function LegalArticle({ page }: { page: LegalPage }) {
         </p>
       </PageHero>
       <div className="container-page max-w-3xl py-12 lg:py-16">
-        {page.notice ? (
-          <p className="mb-8 rounded-button bg-warning-soft p-4 text-sm font-semibold text-warning">{page.notice}</p>
-        ) : null}
         <Markdown>{page.body}</Markdown>
       </div>
     </>

@@ -23,7 +23,7 @@ function Dashboard({ data }: { data: Mockups["dashboard"] }) {
         <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
           <div>
             <p className="text-sm font-bold text-navy">{data.workspace}</p>
-            <p className="text-xs text-muted">{data.title}</p>
+            {data.title ? <p className="text-xs text-muted">{data.title}</p> : null}
           </div>
           <span className="flex items-center gap-2 text-xs font-bold text-success">
             <span className="h-2 w-2 rounded-pill bg-success" />

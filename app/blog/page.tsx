@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import BlogListing from "@/components/blog/BlogListing";
 import PageHero from "@/components/ui/PageHero";
-import { getPublishedPosts } from "@/lib/content/blog";
+import { getPosts } from "@/lib/content/blog";
 import { getPage } from "@/lib/content/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -16,7 +16,7 @@ export default function BlogIndexPage() {
   return (
     <>
       <PageHero eyebrow={page.eyebrow} title={page.title} subtitle={page.subtitle} />
-      <BlogListing posts={getPublishedPosts()} />
+      <BlogListing posts={getPosts()} />
     </>
   );
 }

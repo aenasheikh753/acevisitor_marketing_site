@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import JsonLd from "@/components/ui/JsonLd";
 import Markdown from "@/components/ui/Markdown";
-import { getAuthor, getCategory, getPost, getPublishedPosts } from "@/lib/content/blog";
+import { getAuthor, getCategory, getPost, getPosts } from "@/lib/content/blog";
 import { getSiteSettings } from "@/lib/content/site";
 import { articleJsonLd, buildMetadata, formatDate } from "@/lib/seo";
 
@@ -13,7 +13,7 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getPublishedPosts().map((post) => ({ slug: post.slug }));
+  return getPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {

@@ -184,7 +184,9 @@ export default function ContactForm({ copy, privacyHref }: { copy: FormCopy; pri
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-4">
+      <p className="mt-5 text-sm text-muted">{copy.note}</p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-4">
         <Button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? copy.submitting : copy.submit}
         </Button>

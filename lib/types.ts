@@ -170,34 +170,18 @@ export type GalleryItem = {
   image: string;
   alt: string;
   caption: string;
+  description?: string;
   category: string;
   sortOrder: number;
 };
 
-export type SecurityControl = {
-  slug: string;
-  name: string;
-  description: string;
-  icon: IconName;
-  verificationStatus: "internal" | "unverified" | "verified";
-  owner: string;
-  reviewDate: string;
-  sortOrder: number;
-};
-
-/** The only control fields allowed to reach the public page. */
-export type PublicSecurityControl = Pick<SecurityControl, "slug" | "name" | "description" | "icon">;
-
 export type Author = { slug: string; name: string; role: string; bio: string };
 export type Category = { slug: string; name: string; description: string };
-
-export type BlogStatus = "draft" | "published";
 
 export type BlogPost = {
   slug: string;
   title: string;
   date: string;
-  status: BlogStatus;
   summary: string;
   coverImage: string;
   coverAlt: string;
@@ -212,7 +196,6 @@ export type LegalPage = {
   title: string;
   subtitle: string;
   revised: string;
-  notice?: string;
   seo: Seo;
   body: string;
 };
@@ -242,6 +225,7 @@ export type SplitSection = Heading & {
   type: "split";
   body?: string[];
   checklist?: string[];
+  cards?: CardItem[];
   stats?: { value: string; label: string }[];
   visual?: VisualName;
   image?: string;
@@ -258,14 +242,6 @@ export type WorkflowSection = Heading & {
 export type GallerySection = Heading & { type: "gallery" };
 export type GalleryPreviewSection = Heading & { type: "galleryPreview"; limit: number; action: LinkItem };
 export type LatestPostsSection = Heading & { type: "latestPosts"; limit: number; action: LinkItem };
-
-export type SecuritySection = Heading & {
-  type: "security";
-  emptyTitle: string;
-  emptyDescription: string;
-  emptyItems: CardItem[];
-  emptyAction: LinkItem;
-};
 
 export type FaqSection = Heading & {
   type: "faqs";
@@ -286,6 +262,7 @@ export type FormCopy = {
   };
   submit: string;
   submitting: string;
+  note: string;
   privacyNote: string;
   errorSummary: string;
   success: { title: string; description: string };
@@ -294,8 +271,10 @@ export type FormCopy = {
 
 export type FormSection = Heading & {
   type: "form";
+  asideEyebrow?: string;
   asideTitle: string;
-  asideItems: CardItem[];
+  asideDescription?: string;
+  asideItems?: CardItem[];
   form: FormCopy;
 };
 
@@ -316,7 +295,6 @@ export type Section =
   | GallerySection
   | GalleryPreviewSection
   | LatestPostsSection
-  | SecuritySection
   | FaqSection
   | SiteIndexSection
   | FormSection

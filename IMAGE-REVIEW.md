@@ -17,12 +17,12 @@ Every image below is AI-generated, of undocumented origin, or a placeholder. Eac
 
 ## Product views built in code
 
-These are not image files. They use fictional names and figures from `content/mockups.json` and carry an "illustrative" label for screen readers. Confirm that they match the product, or replace them with screenshots using the **Image** field in the CMS.
+These are not image files. They use fictional names and figures from `lib/content/mockups.ts` and carry an "illustrative" label for screen readers. Confirm that they match the product, or replace them with screenshots.
 
 | Visual | Used on |
 | --- | --- |
-| Site overview dashboard | Home hero |
-| Front desk console | Platform hero, Home, Solutions |
+| Site overview dashboard | Home hero, Platform hero |
+| Front desk console | Home, Platform, Solutions |
 | Kiosk and badge | Platform, About |
-| Host approval | Platform, Solutions |
+| Host approval | Solutions |
 | Multi-site list | Solutions hero, Home, Solutions |

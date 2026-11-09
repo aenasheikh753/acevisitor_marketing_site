@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import BlogListing from "@/components/blog/BlogListing";
 import PageHero from "@/components/ui/PageHero";
-import { getAuthor, getAuthors, getPublishedPosts } from "@/lib/content/blog";
+import { getAuthor, getAuthors, getPosts } from "@/lib/content/blog";
 import { getSiteSettings } from "@/lib/content/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -35,7 +35,7 @@ export default async function BlogAuthorPage({ params }: Props) {
   return (
     <>
       <PageHero eyebrow={blog.authorEyebrow} title={author.name} subtitle={author.bio} />
-      <BlogListing posts={getPublishedPosts().filter((post) => post.author === slug)} activeCategory={`author:${slug}`} />
+      <BlogListing posts={getPosts().filter((post) => post.author === slug)} activeCategory={`author:${slug}`} />
     </>
   );
 }
