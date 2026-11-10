@@ -26,11 +26,6 @@ export default async function BlogListing({ posts, activeCategory }: { posts: Bl
         ))}
       </nav>
       {posts.length ? <PostGrid posts={posts} headingLevel="h2" /> : <p className="text-muted">{blog.empty}</p>}
-      <p className="mt-10 text-sm">
-        <a className="text-link" href="/blog/rss.xml">
-          {blog.rssLabel}
-        </a>
-      </p>
     </Section>
   );
 }

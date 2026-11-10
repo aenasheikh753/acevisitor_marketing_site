@@ -13,9 +13,7 @@ export default async function PageView({ page, large }: { page: Page; large?: bo
         eyebrow={page.eyebrow}
         title={page.title}
         subtitle={page.subtitle}
-        visual={page.heroVisual}
-        image={page.heroImage}
-        imageAlt={page.heroImageAlt}
+        images={page.heroImages}
         primaryAction={page.primaryAction}
         secondaryAction={page.secondaryAction}
         proofLine={page.proofLine}

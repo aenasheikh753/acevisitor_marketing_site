@@ -2,16 +2,13 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
-import Visual from "@/components/visuals/Visual";
-import type { LinkItem, VisualName } from "@/lib/types";
+import type { ImageItem, LinkItem } from "@/lib/types";
 
 type PageHeroProps = {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  visual?: VisualName;
-  image?: string;
-  imageAlt?: string;
+  images?: ImageItem[];
   primaryAction?: LinkItem;
   secondaryAction?: LinkItem;
   proofLine?: string;
@@ -20,13 +17,47 @@ type PageHeroProps = {
   children?: ReactNode;
 };
 
+const MAX_COLLAGE_IMAGES = 3;
+
+function HeroMedia({ images }: { images: ImageItem[] }) {
+  if (images.length === 1) {
+    const [image] = images;
+    // Sized by the file itself, so an uploaded image of any shape shows in full.
+    return (
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={1200}
+        height={750}
+        preload
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        className="mx-auto h-auto max-h-[34rem] w-auto max-w-full rounded-panel shadow-lift"
+      />
+    );
+  }
+  return (
+    <div className="hero-collage">
+      {images.slice(0, MAX_COLLAGE_IMAGES).map((image) => (
+        <Image
+          key={image.src}
+          src={image.src}
+          alt={image.alt}
+          width={800}
+          height={500}
+          preload
+          sizes="(min-width: 1024px) 28vw, 56vw"
+          className="hero-collage-item"
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function PageHero({
   eyebrow,
   title,
   subtitle,
-  visual = "none",
-  image,
-  imageAlt,
+  images = [],
   primaryAction,
   secondaryAction,
   proofLine,
@@ -34,7 +65,7 @@ export default function PageHero({
   large,
   children,
 }: PageHeroProps) {
-  const hasMedia = Boolean(image) || visual !== "none";
+  const hasMedia = images.length > 0;
   return (
     <section className="tone-dark relative overflow-hidden">
       <div aria-hidden="true" className="hero-rings" />
@@ -78,19 +109,7 @@ export default function PageHero({
         </div>
         {hasMedia ? (
           <div className="min-w-0">
-            {image ? (
-              <Image
-                src={image}
-                alt={imageAlt ?? ""}
-                width={1200}
-                height={750}
-                priority
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="aspect-[8/5] w-full rounded-panel object-cover shadow-lift"
-              />
-            ) : (
-              <Visual name={visual} />
-            )}
+            <HeroMedia images={images} />
           </div>
         ) : null}
       </div>

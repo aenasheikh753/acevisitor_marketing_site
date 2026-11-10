@@ -54,7 +54,6 @@ export type UiCopy = {
   menuClose: string;
   loginUnavailable: string;
   footerNavLabel: string;
-  mockupNote: string;
   blog: {
     categoriesLabel: string;
     allCategories: string;
@@ -63,7 +62,8 @@ export type UiCopy = {
     categoryEyebrow: string;
     authorEyebrow: string;
     empty: string;
-    rssLabel: string;
+    seeMore: string;
+    seeAll: string;
   };
   gallery: {
     allCategories: string;
@@ -85,60 +85,6 @@ export type UiCopy = {
   };
 };
 
-/* ---------- Mockups (text inside the built-in product visuals) ---------- */
-
-export type VisualName = "none" | "dashboard" | "frontDesk" | "kiosk" | "approvals" | "multiSite";
-
-export type MockStatus = "success" | "info" | "waiting";
-
-export type Mockups = {
-  dashboard: {
-    label: string;
-    workspace: string;
-    title: string;
-    live: string;
-    stats: { label: string; value: string }[];
-    chartTitle: string;
-    chartCaption: string;
-    bars: number[];
-    listTitle: string;
-    visitors: { initials: string; name: string; detail: string; status: MockStatus; statusLabel: string }[];
-    toast: string;
-    menu: string[];
-  };
-  frontDesk: {
-    label: string;
-    title: string;
-    caption: string;
-    columns: string[];
-    rows: { initials: string; name: string; host: string; time: string; status: MockStatus; statusLabel: string }[];
-  };
-  kiosk: {
-    label: string;
-    greeting: string;
-    subtitle: string;
-    actions: string[];
-    badge: { label: string; name: string; company: string; host: string; valid: string };
-  };
-  approvals: {
-    label: string;
-    eyebrow: string;
-    name: string;
-    company: string;
-    details: string[];
-    acknowledged: string;
-    approve: string;
-    decline: string;
-  };
-  multiSite: {
-    label: string;
-    title: string;
-    live: string;
-    onSiteLabel: string;
-    sites: { name: string; onSite: string; load: number }[];
-  };
-};
-
 /* ---------- Collections ---------- */
 
 export type Feature = {
@@ -151,7 +97,6 @@ export type Feature = {
   benefits: string[];
   image?: string;
   imageAlt?: string;
-  visual?: VisualName;
   sortOrder: number;
 };
 
@@ -200,6 +145,8 @@ export type BlogPost = {
 
 /* ---------- Pages and modular sections ---------- */
 
+export type ImageItem = { src: string; alt: string };
+
 export type CardItem = {
   icon: IconValue;
   title: string;
@@ -234,7 +181,6 @@ export type SplitSection = Heading & {
   checklist?: string[];
   cards?: CardItem[];
   stats?: { value: string; label: string }[];
-  visual?: VisualName;
   image?: string;
   imageAlt?: string;
   reverse?: boolean;
@@ -314,10 +260,8 @@ export type Page = {
   eyebrow: string;
   title: string;
   subtitle: string;
-  heroVisual: VisualName;
-  /** An uploaded image that replaces the built-in hero visual. */
-  heroImage?: string;
-  heroImageAlt?: string;
+  /** Uploaded images beside the heading: one fills the space, two or three overlap. Empty for a text-only hero. */
+  heroImages?: ImageItem[];
   primaryAction?: LinkItem;
   secondaryAction?: LinkItem;
   proofLine?: string;

@@ -154,7 +154,6 @@ export const siteSettings: SiteSettings = {
     "menuClose": "Close navigation menu",
     "loginUnavailable": "Login is not available yet",
     "footerNavLabel": "Legal",
-    "mockupNote": "Illustrative product view. Names and figures are fictional.",
     "blog": {
       "categoriesLabel": "Filter by category",
       "allCategories": "All",
@@ -163,7 +162,8 @@ export const siteSettings: SiteSettings = {
       "categoryEyebrow": "Category",
       "authorEyebrow": "Author",
       "empty": "New articles are on the way.",
-      "rssLabel": "Subscribe via RSS"
+      "seeMore": "See more",
+      "seeAll": "See all resources"
     },
     "gallery": {
       "allCategories": "All",

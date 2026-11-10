@@ -45,7 +45,7 @@ export default function Header({ brandName, logo, menu, loginLabel, cta, ui }: H
     <header className="site-header">
       <div className="container-page grid h-(--header-height) grid-cols-[1fr_auto] items-center gap-4 xl:grid-cols-[1fr_auto_1fr]">
         <Link href="/" className="flex w-fit items-center gap-2.5 rounded-small" aria-label={ui.homeLabel} onClick={close}>
-          <Image src={logo.src} alt="" width={38} height={44} priority className="h-11 w-auto" />
+          <Image src={logo.src} alt="" width={38} height={44} preload className="h-11 w-auto" />
           <span className="font-display text-xl font-extrabold tracking-tight text-navy">{brandName}</span>
         </Link>
 

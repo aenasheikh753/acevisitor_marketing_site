@@ -1,4 +1,4 @@
-import type { Feature, VisualName } from "@/lib/types";
+import type { Feature } from "@/lib/types";
 
 const module_ = (sortOrder: number, slug: string, name: string, icon: string, description: string): Feature => ({
   slug,
@@ -17,8 +17,9 @@ const solution = (
   name: string,
   description: string,
   benefits: string[],
-  visual: VisualName,
-): Feature => ({ slug, kind: "solution", eyebrow, name, icon: "", description, benefits, visual, sortOrder });
+  image: string,
+  imageAlt: string,
+): Feature => ({ slug, kind: "solution", eyebrow, name, icon: "", description, benefits, image, imageAlt, sortOrder });
 
 export const features: Feature[] = [
   module_(1, "pre-registration", "Pre-registration", "calendar", "Hosts schedule visits in advance with purpose, site, duration and required documents."),
@@ -37,7 +38,8 @@ export const features: Feature[] = [
     "Multi-site visitor programs",
     "Standardize how every building receives visitors, while giving each site control of the details it owns.",
     ["Global visitor types, documents and approval chains", "Per-site hours, zones, escort rules and badge layouts", "Estate-wide reporting with per-building drill-down"],
-    "multiSite",
+    "/images/product/multi-site.webp",
+    "Illustrative overview of visitors on site at six locations, connected to one shared policy. Names and figures are fictional.",
   ),
   solution(
     2,
@@ -46,7 +48,8 @@ export const features: Feature[] = [
     "Contractor and vendor access",
     "Give recurring workers controlled, time-bound access without losing track of inductions and insurance documents.",
     ["Recurring visit schedules with validity windows", "Document expiry tracking that blocks non-compliant arrivals", "Escort requirements and restricted zone flags on the badge"],
-    "approvals",
+    "/images/product/host-approval.webp",
+    "Illustrative phone showing a host approval request beside a visitor's arrival progress. Names are fictional.",
   ),
   solution(
     3,
@@ -55,6 +58,7 @@ export const features: Feature[] = [
     "Front desk operations",
     "Reduce queueing at reception and give front desk teams a clear, auditable workflow for every arrival.",
     ["Expected-arrivals list with one-tap check-in", "Walk-in registration with immediate host notification", "Badge reprint, early check-out and no-show handling"],
-    "frontDesk",
+    "/images/product/front-desk-console.webp",
+    "Illustrative front desk console listing today's visitors, hosts, arrival times and statuses. Names are fictional.",
   ),
 ];

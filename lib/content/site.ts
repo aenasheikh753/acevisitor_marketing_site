@@ -1,15 +1,10 @@
-import type { Mockups, Page, SiteSettings } from "@/lib/types";
+import type { Page, SiteSettings } from "@/lib/types";
 import { fetchContent } from "./client";
-import { mockups } from "./seed/mockups";
 import { pages } from "./seed/pages";
 import { siteSettings } from "./seed/settings";
 
 export function getSiteSettings(): Promise<SiteSettings> {
   return fetchContent("site", siteSettings);
-}
-
-export function getMockups(): Promise<Mockups> {
-  return fetchContent("mockups", mockups);
 }
 
 export function getAllPages(): Promise<Page[]> {

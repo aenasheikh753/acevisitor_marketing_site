@@ -34,8 +34,8 @@ export const posts: BlogPost[] = [
   "date": "2026-09-18",
   "status": "published",
   "summary": "Small improvements to arrival coordination can make a busy reception feel more manageable.",
-  "coverImage": "/images/blog/front-desk-workflows.webp",
-  "coverAlt": "Abstract navy cover graphic with rising outlined blocks",
+  "coverImage": "/images/blog/cover-front-desk-workflows.webp",
+  "coverAlt": "Illustration of a visitor arrival moving through four connected front desk steps",
   "category": "front-desk-operations",
   "author": "acevisitor-editorial",
   "seo": {
@@ -63,8 +63,8 @@ A connected workflow gives front desk staff a view of expected visitors, arrival
   "date": "2026-08-26",
   "status": "published",
   "summary": "Enterprise visitor programs work best when shared standards leave room for site realities.",
-  "coverImage": "/images/blog/multi-site-operations.webp",
-  "coverAlt": "Abstract blue cover graphic with a grid of outlined tiles",
+  "coverImage": "/images/blog/cover-multi-site-programs.webp",
+  "coverAlt": "Illustration of several sites connected to one set of shared standards",
   "category": "multi-site-programs",
   "author": "acevisitor-editorial",
   "seo": {
@@ -90,8 +90,8 @@ Begin with a small set of common principles, paired with a regular way to learn 
   "date": "2026-10-12",
   "status": "published",
   "summary": "A thoughtful visitor program starts well before a guest reaches the reception desk.",
-  "coverImage": "/images/blog/visitor-experience-checklist.webp",
-  "coverAlt": "Abstract navy and blue cover graphic with concentric circles",
+  "coverImage": "/images/blog/cover-visitor-checklist.webp",
+  "coverAlt": "Illustration of a visitor welcome checklist beside an invitation and a visitor badge",
   "category": "visitor-experience",
   "author": "acevisitor-editorial",
   "seo": {

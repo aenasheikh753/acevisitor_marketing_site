@@ -3,8 +3,7 @@ import { CheckList } from "@/components/sections/Cards";
 import Button from "@/components/ui/Button";
 import Icon, { IconTile } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/Section";
-import Visual from "@/components/visuals/Visual";
-import type { CardItem, LinkItem, VisualName } from "@/lib/types";
+import type { CardItem, LinkItem } from "@/lib/types";
 
 type SplitRowProps = {
   eyebrow?: string;
@@ -15,7 +14,6 @@ type SplitRowProps = {
   checklist?: string[];
   cards?: CardItem[];
   stats?: { value: string; label: string }[];
-  visual?: VisualName;
   image?: string;
   imageAlt?: string;
   reverse?: boolean;
@@ -23,11 +21,10 @@ type SplitRowProps = {
 };
 
 export function SplitRow(props: SplitRowProps) {
-  const { eyebrow, title, description, body, checklistTitle, checklist, cards, stats, visual, image, imageAlt, reverse, action } = props;
-  const hasMedia = Boolean(image) || (visual && visual !== "none");
+  const { eyebrow, title, description, body, checklistTitle, checklist, cards, stats, image, imageAlt, reverse, action } = props;
 
   return (
-    <div className={`grid items-center gap-10 lg:gap-16 ${hasMedia ? "lg:grid-cols-2" : ""}`}>
+    <div className={`grid items-center gap-10 lg:gap-16 ${image ? "lg:grid-cols-2" : ""}`}>
       <div className={reverse ? "lg:order-2" : ""}>
         <SectionHeading eyebrow={eyebrow} title={title} description={description} />
         {body?.map((paragraph) => (
@@ -68,20 +65,16 @@ export function SplitRow(props: SplitRowProps) {
           </Button>
         ) : null}
       </div>
-      {hasMedia ? (
+      {image ? (
         <div className={`reveal min-w-0 ${reverse ? "lg:order-1" : ""}`}>
-          {image ? (
-            <Image
-              src={image}
-              alt={imageAlt ?? ""}
-              width={1200}
-              height={750}
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="aspect-[8/5] w-full rounded-panel object-cover shadow-card"
-            />
-          ) : visual ? (
-            <Visual name={visual} />
-          ) : null}
+          <Image
+            src={image}
+            alt={imageAlt ?? ""}
+            width={1200}
+            height={750}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="aspect-[8/5] w-full rounded-panel object-cover shadow-card"
+          />
         </div>
       ) : null}
     </div>

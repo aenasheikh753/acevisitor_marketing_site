@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import JsonLd from "@/components/ui/JsonLd";
 import Markdown from "@/components/ui/Markdown";
@@ -79,6 +80,12 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="mt-3 text-[0.95rem] leading-7 text-muted">{author.bio}</p>
           </aside>
         ) : null}
+        <div className="mt-10 text-center">
+          <Button href="/blog" variant="secondary">
+            {blog.seeAll}
+            <Icon name="arrowRight" className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       <JsonLd data={await articleJsonLd(post)} />
     </article>

@@ -64,7 +64,6 @@ async function Solutions() {
           title={solution.name}
           description={solution.description}
           checklist={solution.benefits}
-          visual={solution.visual}
           image={solution.image}
           imageAlt={solution.imageAlt}
           reverse={position % 2 === 1}

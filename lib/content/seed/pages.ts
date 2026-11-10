@@ -3,6 +3,8 @@ import type { CardItem, FormCopy, LinkItem, Page, Section, Seo } from "@/lib/typ
 /** Sample content shown until the admin API is connected. */
 
 const card = (icon: string, title: string, description: string): CardItem => ({ icon, title, description });
+/** Spreads an uploaded image and its alt text into a section. */
+const shot = (image: string, imageAlt: string) => ({ image, imageAlt });
 const seo = (canonical: string, title: string, description: string): Seo => ({
   title,
   description,
@@ -92,7 +94,7 @@ export const pages: Page[] = [
     eyebrow: "Enterprise visitor management",
     title: "Control every entrance, across every site.",
     subtitle: "AceVisitor replaces paper logbooks and disconnected sign-in apps with one governed platform for pre-registration, verified check-in, host approval, badge printing and audit-ready visitor records.",
-    heroVisual: "dashboard",
+    heroImages: [{ src: "/images/product/visitor-dashboard.webp", alt: "Illustrative AceVisitor dashboard showing visitors on site, arrivals today and recent visitors. Names and figures are fictional." }],
     primaryAction: demo,
     secondaryAction: { label: "Explore the platform", href: "/platform" },
     heroProofs: [
@@ -129,7 +131,7 @@ export const pages: Page[] = [
           card("door", "Guided kiosk check-in", "An intuitive self-service flow for guests at the door."),
           card("badge", "On-brand badges", "Clear visitor identification with the details your team needs."),
         ],
-        visual: "frontDesk",
+        ...shot("/images/product/front-desk-console.webp", "Illustrative front desk console listing today's visitors, hosts, arrival times and statuses. Names are fictional."),
       },
       {
         type: "cards",
@@ -156,7 +158,7 @@ export const pages: Page[] = [
           card("users", "Scoped administration", "Site administrators manage their own entrances without seeing other locations."),
           card("clipboardList", "Consolidated reporting", "Review visitor volumes and incidents across the whole estate or one building."),
         ],
-        visual: "multiSite",
+        ...shot("/images/product/multi-site.webp", "Illustrative overview of visitors on site at six locations, connected to one shared policy. Names and figures are fictional."),
         reverse: true,
       },
       {
@@ -181,9 +183,7 @@ export const pages: Page[] = [
     eyebrow: "Platform",
     title: "One platform for the entire visitor lifecycle",
     subtitle: "From the moment a host sends an invitation to the moment a visitor badge is deactivated, AceVisitor keeps a single governed record of who was on site and why.",
-    heroVisual: "dashboard",
-    primaryAction: demo,
-    secondaryAction: sales,
+    heroImages: [{ src: "/images/gallery/management-console.webp", alt: "Illustrative AceVisitor console on a laptop with a phone beside it" }],
     sections: [
       {
         type: "features",
@@ -202,7 +202,7 @@ export const pages: Page[] = [
           "Evacuation list generated on demand for any location",
           "Searchable history by visitor, company, host, site or date range",
         ],
-        visual: "frontDesk",
+        ...shot("/images/gallery/front-desk-check-in.webp", "Illustrative visitor check-in kiosk, front desk console and phone in a reception area"),
       },
       {
         type: "split",
@@ -214,7 +214,7 @@ export const pages: Page[] = [
           "Safety briefings and site rules shown before access is granted",
           "Badge prints automatically with zone and escort information",
         ],
-        visual: "kiosk",
+        ...shot("/images/product/kiosk-badge.webp", "Illustrative self-service check-in kiosk beside a printed visitor badge. Names are fictional."),
         reverse: true,
       },
       journey,
@@ -240,9 +240,7 @@ export const pages: Page[] = [
     eyebrow: "Solutions",
     title: "Built for the teams accountable for who is on site",
     subtitle: "Security leaders, facilities teams and reception staff work from one platform with one visitor record, whether you run two buildings or two hundred.",
-    heroVisual: "multiSite",
-    primaryAction: demo,
-    secondaryAction: sales,
+    heroImages: [{ src: "/images/gallery/multi-site-operations.webp", alt: "Illustrative laptop showing a multi-site overview surrounded by office, school and data center sites" }],
     sections: [
       { type: "solutions", title: "" },
       {
@@ -271,9 +269,6 @@ export const pages: Page[] = [
     eyebrow: "Industries",
     title: "Entrance requirements differ. The standard shouldn't.",
     subtitle: "AceVisitor configures to the rules of each sector while keeping one consistent record of every visit across your organization.",
-    heroVisual: "none",
-    primaryAction: demo,
-    secondaryAction: sales,
     sections: [
       { type: "industries", eyebrow: "Sectors", title: "Configured for the way your sites actually operate" },
       cta("Discuss the requirements of your sites", "An enterprise specialist will walk through your entrances, visitor types and reporting obligations."),
@@ -285,8 +280,11 @@ export const pages: Page[] = [
     eyebrow: "Inside AceVisitor",
     title: "AceVisitor in focus",
     subtitle: "Explore the experiences that help visitors feel expected and help teams stay on top of the day.",
-    heroVisual: "none",
-    primaryAction: demo,
+    heroImages: [
+      { src: "/images/gallery/front-desk-check-in.webp", alt: "Illustrative visitor check-in kiosk and front desk console in a reception area" },
+      { src: "/images/gallery/visitor-badge.webp", alt: "Illustrative receptionist handing a visitor badge across a desk" },
+      { src: "/images/gallery/host-approvals.webp", alt: "Illustrative phone showing a visitor approval request in a lobby" },
+    ],
     sections: [{ type: "gallery", title: "" }],
     seo: seo("/gallery", "Screenshot Gallery | AceVisitor", "Explore AceVisitor check-in, badges, host approvals and multi-site visitor management in our visual gallery."),
   },
@@ -295,7 +293,6 @@ export const pages: Page[] = [
     eyebrow: "Security & Governance",
     title: "Visitor data is sensitive. We treat it that way.",
     subtitle: "AceVisitor is built around least-privilege access, strict tenant isolation and a complete record of administrative activity.",
-    heroVisual: "none",
     primaryAction: demo,
     secondaryAction: sales,
     sections: [
@@ -338,21 +335,16 @@ export const pages: Page[] = [
           },
         ],
       },
-      {
-        type: "split",
-        title: "",
-        description: "Security questionnaires, architecture documentation and details of our current compliance posture are shared directly with prospective customers under review. Contact our team to request them.",
-      },
       cta("Request a security review session", "We can walk your security and IT teams through the platform's access model, data handling and audit capabilities."),
     ],
     seo: seo("/security", "Security & Governance | AceVisitor", "AceVisitor security architecture: tenant separation, role-based access control, multi-factor authentication, encryption and immutable audit logging."),
   },
   {
     slug: "about",
-    eyebrow: "About",
-    title: "We build for organizations where the entrance is a control point",
-    subtitle: "AceVisitor exists because large organizations still manage visitors with paper logbooks, spreadsheets and sign-in apps that were never designed for multi-site governance.",
-    heroVisual: "none",
+    eyebrow: "About AceVisitor",
+    title: "A more human way to manage the front door.",
+    subtitle: "We believe welcoming people and running secure sites should work together — with less friction for guests and more clarity for teams.",
+    heroImages: [{ src: "/images/about/acevisitor-team.webp", alt: "AceVisitor team and workplace welcoming visitors" }],
     sections: [
       {
         type: "split",
@@ -361,38 +353,14 @@ export const pages: Page[] = [
         body: [
           "The first few minutes at a workplace shape how people feel about the organization they came to see. Yet visitor processes are often spread across paper logs, email threads, and disconnected tools.",
           "AceVisitor brings those moments into one thoughtful experience: clear for guests, useful for on-site teams, and visible to the people responsible for the wider program.",
+          "Our focus is simple — make it easier for organizations to welcome people well while keeping daily operations accountable and consistent.",
         ],
-        visual: "kiosk",
-      },
-      {
-        type: "split",
-        eyebrow: "Our mission",
-        title: "Make every visit verified, permissioned and recorded",
-        description: "A visitor program should answer three questions at any moment: who is on site, who approved them, and what they were allowed to access. AceVisitor is designed to answer all three without extra work for reception or security staff.",
-        checklistTitle: "What we focus on",
-        checklist: [
-          "Enterprise deployments across multiple buildings and regions",
-          "Governance: roles, approvals, retention and audit evidence",
-          "Entrance operations that work for reception, security and hosts",
-          "Configurability without custom development for each site",
-        ],
-      },
-      {
-        type: "cards",
-        eyebrow: "How we work",
-        title: "Deployment led by people who know entrances",
-        description: "Every engagement starts with your sites, visitor types and reporting obligations, not a generic template.",
-        columns: 3,
-        items: [
-          card("search", "Discovery", "We map your entrances, visitor categories, approval rules and reporting needs."),
-          card("settings", "Configuration", "Global standards and per-site overrides are set up with your security and facilities teams."),
-          card("network", "Rollout", "Phased launch by site, with training for reception, security and hosts."),
-        ],
+        ...shot("/images/gallery/visitor-badge.webp", "Illustrative receptionist handing a visitor badge across a desk"),
       },
       {
         type: "cards",
         eyebrow: "What guides us",
-        title: "People first, clarity at scale, trust through design",
+        title: "The principles behind every visit",
         columns: 3,
         items: [
           card("users", "People first", "Make the visitor experience welcoming and the staff experience practical."),
@@ -401,12 +369,12 @@ export const pages: Page[] = [
         ],
       },
       {
-        type: "split",
-        eyebrow: "A product by Datacompute Consulting LLC",
-        title: "Built with a focus on practical operations.",
-        body: ["AceVisitor is a visitor-management product from Datacompute Consulting LLC. The team’s focus is to help organizations welcome people well while making daily visitor operations easier to understand and coordinate."],
+        type: "cta",
+        title: "Let's make your front door work better.",
+        description: "Tell us what a great visitor experience looks like for your organization.",
+        primary: { label: "Get in touch", href: "/contact" },
+        secondary: { label: "Explore the platform", href: "/platform" },
       },
-      standardCta,
     ],
     seo: seo("/about", "About | AceVisitor", "AceVisitor builds enterprise visitor management for organizations running controlled entrances across many buildings, sites and regions."),
   },
@@ -415,7 +383,6 @@ export const pages: Page[] = [
     eyebrow: "Contact",
     title: "Talk to the AceVisitor team",
     subtitle: "Whether you're evaluating a visitor program, reviewing security requirements or already running AceVisitor, we'll point you to the right person.",
-    heroVisual: "none",
     sections: [
       {
         type: "form",
@@ -440,7 +407,6 @@ export const pages: Page[] = [
     eyebrow: "Request a demo",
     title: "See AceVisitor against your own entrance requirements",
     subtitle: "Tell us about your sites and visitor types, and we'll arrange a guided walkthrough with an enterprise specialist.",
-    heroVisual: "none",
     sections: [
       {
         type: "form",
@@ -463,7 +429,6 @@ export const pages: Page[] = [
     eyebrow: "FAQs",
     title: "Frequently asked questions",
     subtitle: "Quick answers about AceVisitor. Can't find what you need? Request a demo.",
-    heroVisual: "none",
     sections: [
       {
         type: "faqs",
@@ -492,7 +457,6 @@ export const pages: Page[] = [
     eyebrow: "Site index",
     title: "Every page, in one place",
     subtitle: "Browse product information, company details and resources.",
-    heroVisual: "none",
     sections: [{ type: "siteIndex", title: "All pages", postsTitle: "Latest insights", legalTitle: "Legal" }],
     seo: seo("/site-index", "Site Index | AceVisitor", "A full index of every page on the AceVisitor website."),
   },
@@ -501,7 +465,6 @@ export const pages: Page[] = [
     eyebrow: "Insights",
     title: "Ideas for a better visitor experience.",
     subtitle: "Practical perspectives on welcoming guests, coordinating teams and running visitor programs across sites.",
-    heroVisual: "none",
     sections: [],
     seo: seo("/blog", "Blog & Insights | AceVisitor", "Practical perspectives on welcoming guests, coordinating teams and running visitor programs across sites."),
   },
@@ -510,7 +473,6 @@ export const pages: Page[] = [
     eyebrow: "Legal",
     title: "Privacy Policy",
     subtitle: "How this website handles the information you share with us.",
-    heroVisual: "none",
     revised: "2026-11-09",
     sections: [
       {
@@ -560,7 +522,6 @@ AceVisitor website text, branding and original materials are protected by applic
     eyebrow: "Legal",
     title: "Terms of Use",
     subtitle: "The terms that apply when you use this website.",
-    heroVisual: "none",
     revised: "2026-11-09",
     sections: [
       {

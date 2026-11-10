@@ -35,11 +35,12 @@ Each endpoint returns JSON matching the type in `lib/types.ts`.
 | `features` | `Feature[]` | Platform modules and solutions |
 | `industries` | `Industry[]` | Industry cards and images |
 | `media` | `MediaItem[]` | Images with alt text, caption, category and usage; `usage: "gallery"` appears in the Gallery |
-| `mockups` | `Mockups` | Text inside the built-in product visuals |
 
 Rules the frontend follows:
 
 - **Icons:** a name from `iconNames` in `components/ui/Icon.tsx`, an uploaded image URL, or an empty string for no icon.
-- **Images:** any card, solution, industry or hero can take an uploaded image. Set `MEDIA_HOST` to the host that serves uploads.
+- **Images:** every picture on the site is an ordinary image file with alt text, so an admin uploads, replaces or deletes it with no code. Set `MEDIA_HOST` to the host that serves uploads.
+- **Hero images:** `heroImages` on a page takes none (text-only hero), one (shown in full at its own shape) or two to three (overlapping).
+- **Optional parts:** leave out a button, image, icon or section and the layout closes up around it.
 - **Sections:** a page shows its `sections` in array order, so reordering or deleting one changes the page. Section types are listed in `lib/types.ts`.
 - **Forms:** fields are defined in the page data. Each submission is POSTed to `NEXT_PUBLIC_FORM_ENDPOINT` as JSON and includes `form`, the form's name.
