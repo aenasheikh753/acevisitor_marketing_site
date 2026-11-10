@@ -293,8 +293,6 @@ export const pages: Page[] = [
     eyebrow: "Security & Governance",
     title: "Visitor data is sensitive. We treat it that way.",
     subtitle: "AceVisitor is built around least-privilege access, strict tenant isolation and a complete record of administrative activity.",
-    primaryAction: demo,
-    secondaryAction: sales,
     sections: [
       {
         type: "cards",
